@@ -12,6 +12,8 @@ def np_slice(matrix, axes={}):
     }
     for key in axes.keys():
         tuplas[key] = axes[key]
+    if matrix.ndim == 1:
+        return matrix[slice(*tuplas[0])]
     if matrix.ndim == 2:
         return matrix[slice(*tuplas[0]), slice(*tuplas[1])]
     if matrix.ndim == 3:
