@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-""" :v """
+""" this file contains the np slice function """
 
 
 def np_slice(matrix, axes={}):
-    """ :v """
+    """ slices a matrix along a specific axis """
     tuplas = {
         0: (None, None, None),
         1: (None, None, None),
@@ -15,3 +15,6 @@ def np_slice(matrix, axes={}):
         return matrix[slice(*tuplas[0]), slice(*tuplas[1])]
     if matrix.ndim == 3:
         return matrix[slice(*tuplas[0]), slice(*tuplas[1]), slice(*tuplas[2])]
+    if matrix.ndim == 4:
+        return matrix[slice(*tuplas[0]), slice(*tuplas[1]),
+                      slice(*tuplas[2]), slice(*tuplas[3])]
