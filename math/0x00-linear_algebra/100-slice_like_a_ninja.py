@@ -7,7 +7,8 @@ def np_slice(matrix, axes={}):
     tuplas = {
         0: (None, None, None),
         1: (None, None, None),
-        2: (None, None, None)
+        2: (None, None, None),
+        3: (None, None, None)
     }
     for key in axes.keys():
         tuplas[key] = axes[key]
