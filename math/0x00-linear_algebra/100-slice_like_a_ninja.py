@@ -4,6 +4,8 @@
 
 def np_slice(matrix, axes={}):
     """ slices a matrix along a specific axis """
+    if axes == {}:
+        return matrix
     tuplas = {
         0: (None, None, None),
         1: (None, None, None),
