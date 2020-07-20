@@ -25,8 +25,6 @@ y32 = np.exp((r3 / t32) * x3)
 np.random.seed(5)
 student_grades = np.random.normal(68, 15, 50)
 
-
-# subplots
 fig = plt.figure
 plt.suptitle(" All in One")
 
@@ -36,18 +34,15 @@ ax3 = plt.subplot2grid((3, 2), (1, 0))
 ax4 = plt.subplot2grid((3, 2), (1, 1))
 ax5 = plt.subplot2grid((3, 2), (2, 0), colspan=2)
 
-# grid 1
 ax1.plot(y0, color='r')
 ax1.set_xticks([0, 2, 4, 6, 8, 10])
 ax1.set_yticks([0, 500, 1000])
 
-# grid 2
 ax2.scatter(x1, y1, c="m")
 ax2.set_xlabel("Height (in)")
 ax2.set_ylabel("Weight (lbs)")
 ax2.set_title("Men's Height vs Weight")
 
-# grid 3
 ax3.plot(x2, y2)
 ax3.set_yscale('log')
 ax3.set_xlim(0, 28650)
@@ -55,7 +50,6 @@ ax3.set_xlabel("Time (years)")
 ax3.set_ylabel("Fraction remaining")
 ax3.set_title("Exponential Decay of C-14")
 
-# grid 4
 ax4.plot(x3, y31, color='r', linestyle='--')
 ax4.plot(x3, y32, color='g')
 ax4.set_xlim(0, 20000)
@@ -65,7 +59,6 @@ ax4.set_ylabel("Fraction Remaining")
 ax4.legend(('C-14', 'Ra-226'), loc='upper right')
 ax4.set_title("Exponential Decay of Radioactive Elements")
 
-# grid 5
 ax5.hist(student_grades, bins=[40,50,60,70,80,90,100], edgecolor ='k')
 #ax5.xlim(0,100)
 ax5.set_xticks([0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100])
