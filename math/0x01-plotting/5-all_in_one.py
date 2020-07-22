@@ -67,4 +67,5 @@ ax5.set_title("Project A")
 ax5.set_xlabel("Grades")
 ax5.set_ylabel("Number of Students")
 
+plt.tight_layout()
 plt.show()
