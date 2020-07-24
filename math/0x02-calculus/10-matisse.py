@@ -9,6 +9,8 @@ def poly_derivative(poly):
     for item in poly:
         if type(item) != int:
             return None
+    if len(poly) == 0:
+        return None
     deriv = [0]
     for i in range(len(poly)):
         if i == 0:
