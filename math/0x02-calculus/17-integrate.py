@@ -13,5 +13,6 @@ def poly_integral(poly, C=0):
         return None
     integrate = [C]
     for i in range(len(poly)):
-        integrate.append(poly[i] / (i + 1))
+        res = poly[i] / (i + 1)
+        integrate.append(int(res) if res % 1 == 0 else res)
     return integrate
