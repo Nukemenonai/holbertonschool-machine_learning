@@ -5,6 +5,11 @@
 e = 2.7182818285
 
 
+def factorial(n):
+    """returns the factorial of given number """
+    return 1 if (n == 1 or n == 0) else n * factorial(n - 1)
+
+
 class Poisson:
     """ this class representas a Poisson distribution"""
     def __init__(self, data=None, lambtha=1.):
@@ -31,8 +36,14 @@ class Poisson:
         if k < 0:
             return 0
 
-        def factorial(n):
-            """returns the factorial of given number """
-            return 1 if (n == 1 or n == 0) else n * factorial(n - 1)
-
         return ((self.lambtha ** k)*(e ** -(self.lambtha)))/factorial(k)
+
+    def cdf(self, k):
+        """calculates the value of the CDF
+        for a given number of 'successes' """
+        if type(k) != int:
+            int(k)
+        if k < 0:
+            return 0
+        return sum([(e ** -(self.lambtha)) * (self.lambtha ** i) / factorial(i)
+                    for i in range(k + 1)])
