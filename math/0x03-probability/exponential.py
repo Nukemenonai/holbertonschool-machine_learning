@@ -2,6 +2,9 @@
 """this module contains the Exponential distribution class"""
 
 
+e = 2.7182818285
+
+
 class Exponential:
     """ represents  exponential distribution"""
     def __init__(self, data=None, lambtha=1.):
@@ -18,3 +21,10 @@ class Exponential:
                 raise ValueError("data must contain multiple values")
             self.data = data
             self.lambtha = 1 / (sum(data) / len(data))
+
+    def pdf(self, x):
+        """ calculates the value of the PDF
+        for a given period of time """
+        if x < 0:
+            return 0
+        return self.lambtha * (e ** (-self.lambtha * x))
