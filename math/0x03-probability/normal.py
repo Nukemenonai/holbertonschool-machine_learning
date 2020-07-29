@@ -6,15 +6,15 @@
 e = 2.7182818285
 
 
-def erf(x):
-    """ error function """
-    return (2/sqrt(π)) * (x - (x**3/3) + (x**5/10) -
-                          (x**7/42) + (x**9/216))
-
-
 def sq(x):
     """ returns square root """
     return x ** 0.5
+
+
+def erf(x):
+    """ error function """
+    return (2/sq(π)) * (x - (x**3/3) + (x**5/10) -
+                        (x**7/42) + (x**9/216))
 
 
 class Normal:
@@ -53,3 +53,11 @@ class Normal:
         p1 = 1 / (sigma * sq(2 * π))
         p2 = e ** ((-1/2) * ((x - mu)/sigma) ** 2)
         return p1 * p2
+
+    def cdf(self, x):
+        """ Calculates de value of CDF for a given x value """
+        mu = self.mean
+        sigma = self.stddev
+        p2 = (x - mu)/(sigma * sq(2))
+        p3 = 1 + erf(p2)
+        return 1/2 * p3
