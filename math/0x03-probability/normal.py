@@ -1,0 +1,32 @@
+#!/usr/bin/env python3
+""" This module contains the normal distribution class"""
+
+
+π = 3.1415926536
+
+
+def erf(x):
+    """ error function """
+    return (2/sqrt(π)) * (x - (x**3/3) + (x**5/10) -
+                          (x**7/42) + (x**9/216))
+
+
+class Normal:
+    """ represents a normal distribution """
+    def __init__(self, data=None, mean=0., stddev=1.):
+        """ class constructor """
+        if data is None:
+            if stddev < 0:
+                raise ValueError("stddev must be a positive value")
+            else:
+                self.mean = float(mean)
+                self.stddev = float(stddev)
+        else:
+            if type(data) != list:
+                raise TypeError("data must be a list")
+            if len(data) < 2:
+                raise ValueError("data must contain multiple values")
+            self.mean = (sum(data) / len(data))
+            self.stddev = (sum(
+                [(x - self.mean) ** 2 for x in data]
+            ) / len(data)) ** 0.5
