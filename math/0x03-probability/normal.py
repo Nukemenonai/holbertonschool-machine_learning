@@ -11,9 +11,11 @@ def erf(x):
     return (2/sqrt(π)) * (x - (x**3/3) + (x**5/10) -
                           (x**7/42) + (x**9/216))
 
+
 def sq(x):
     """ returns square root """
     return x ** 0.5
+
 
 class Normal:
     """ represents a normal distribution """
