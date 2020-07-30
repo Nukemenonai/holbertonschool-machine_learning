@@ -2,7 +2,6 @@
 """ This module contains the Binomial distribution class """
 
 
-
 def factorial(n):
     """returns the factorial of given number """
     return 1 if (n == 1 or n == 0) else n * factorial(n - 1)
@@ -46,7 +45,7 @@ class Binomial:
         p = self.p
         q = 1 - p
         p1 = factorial(n) / (factorial(k) * factorial(n - k))
-        p2 = ((p ** k) * (q ** (n -k)))
+        p2 = ((p ** k) * (q ** (n - k)))
         return p1 * p2
 
     def cdf(self, k):

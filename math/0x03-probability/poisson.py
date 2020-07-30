@@ -32,7 +32,7 @@ class Poisson:
         calculates the PMF value for a number of successes
         k represents the number of successes """
         if type(k) != int:
-            int(k)
+            k = int(k)
         if k < 0:
             return 0
 
@@ -42,7 +42,7 @@ class Poisson:
         """calculates the value of the CDF
         for a given number of 'successes' """
         if type(k) != int:
-            int(k)
+            k = int(k)
         if k < 0:
             return 0
         return sum([(e ** -(self.lambtha)) * (self.lambtha ** i) / factorial(i)
