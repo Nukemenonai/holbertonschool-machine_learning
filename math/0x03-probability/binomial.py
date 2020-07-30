@@ -24,8 +24,17 @@ class Binomial:
                 raise TypeError("data must be a list")
             if len(data) < 2:
                 raise ValueError("data must contain multiple values")
-            self.p = float(sum([i / 50 for i in data]) / (100))
-            self.n = 50
+            self.mean = sum(data) / len(data)
+            self.stddev = (sum(
+                [(x - self.mean) ** 2 for x in data]
+            ) / len(data)) ** 0.5
+            self.variance = self.stddev ** 2
+            self.p = 1 - (self.variance / self.mean)
+            self.n = int(round((self.mean * 1) / self.p))
+            total = 0
+            for i in data:
+                total += (i / self.n)
+            self.p = round(total / len(data), 3)
 
     def pmf(self, k):
         """ calculates the PMF for a given number of successes"""
@@ -39,3 +48,11 @@ class Binomial:
         p1 = factorial(n) / (factorial(k) * factorial(n - k))
         p2 = ((p ** k) * (q ** (n -k)))
         return p1 * p2
+
+    def cdf(self, k):
+        """calculates the value of the CDF for a number of successes """
+        if type(k) != int:
+            k = int(k)
+        if k < 0:
+            return 0
+        return sum([self.pmf(i) for i in range(k + 1)])
