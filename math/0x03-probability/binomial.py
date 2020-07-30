@@ -30,10 +30,7 @@ class Binomial:
             self.variance = self.stddev ** 2
             self.p = 1 - (self.variance / self.mean)
             self.n = int(round((self.mean * 1) / self.p))
-            total = 0
-            for i in data:
-                total += (i / self.n)
-            self.p = round(total / len(data), 3)
+            self.p = self.mean / self.n
 
     def pmf(self, k):
         """ calculates the PMF for a given number of successes"""
