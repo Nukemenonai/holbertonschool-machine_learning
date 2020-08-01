@@ -27,3 +27,8 @@ Specializations - Machine Learning ― Supervised Learning
 * How to initialize weights/biases
 * The importance of vectorization
 * How to split up your data
+
+## Datasets 
+
+* https://s3.amazonaws.com/intranet-projects-files/holbertonschool-ml/Binary_Train.npz
+* https://s3.amazonaws.com/intranet-projects-files/holbertonschool-ml/Binary_Dev.npz
