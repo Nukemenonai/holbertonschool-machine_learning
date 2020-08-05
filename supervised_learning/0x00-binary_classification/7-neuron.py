@@ -97,7 +97,7 @@ class Neuron:
             self.__A = self.forward_prop(X)
             self.__W, self.__b = self.gradient_descent(X, Y, self.__A, alpha)
             if verbose == True:
-                if i/step = 0:
+                if i/step == 0:
                     print("Cost after {} iterations: {}".format(i, self.__b))
         cost.append(self.__b)
         if graph == True:
