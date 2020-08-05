@@ -90,10 +90,10 @@ class Neuron:
                 raise TypeError("step must be an integer")
             if step <= 0 or step > iterations:
                 raise ValueError("step must be positive and <= iterations")
-        cost, iterations = [] , []
+        cost, iters = [] , []
         for i in range(iterations):
             cost.append(self.__b)
-            iterations.append(i)
+            iters.append(i)
             self.__A = self.forward_prop(X)
             self.__W, self.__b = self.gradient_descent(X, Y, self.__A, alpha)
             if verbose == True:
