@@ -2,6 +2,7 @@
 """This file contains the Privatized class Neuron """
 import numpy as np
 
+
 class Neuron:
     """defines a single neuron performing binary clasification"""
     def __init__(self, nx):
