@@ -53,4 +53,4 @@ class Neuron:
         X: contains the input data
         Y: np.nadarray(1, m) contains the correct labels"""
         Z = self.forward_prop(X)
-        return np.rint(Z), self.cost(Y, Z)
+        return np.where(Z < 0.5, 0, 1), self.cost(Y, Z)
