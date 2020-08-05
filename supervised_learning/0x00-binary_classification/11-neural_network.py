@@ -72,4 +72,3 @@ class NeuralNetwork:
         m = np.shape(Y)
         return -(1 / m[1]) * np.sum(Y * np.log(A) +
                                     (1 - Y) * np.log(1.0000001 - A))
-    
