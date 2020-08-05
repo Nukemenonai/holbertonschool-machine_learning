@@ -63,10 +63,10 @@ class Neuron:
         alpha: learning rate
         """
         XT = X.transpose()
-        YT = Y.transpose()
         m = np.shape(Y)
         loss = A - Y
-        gradient = np.dot(YT, loss) / m[1]
+        gradient = np.dot(loss, XT) / m[1]
         self.__W = self.__W - alpha * gradient
-        db = np.dot(Y, loss) / m[1]
+        db = loss.sum() / m[1]
+        self.__b = self.__b - alpha * db
         return self.__W, self.__b
