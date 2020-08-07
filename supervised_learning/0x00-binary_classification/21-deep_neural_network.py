@@ -68,15 +68,16 @@ class DeepNeuralNetwork:
 
     def gradient_descent(self, Y, cache, alpha=0.05):
         """ calculates one pass of the gradient descent on NN"""
+        dZ = []
         m = np.shape(Y)[1]
         L = self.__L
-        dZ = [cache['A' + str(L)] - Y]
+        dZ.append(cache['A' + str(L)] - Y)
         for l in range(L, 0, -1):
-            A = self.__cache['A' + str(l - 1)]
+            A = cache['A' + str(l - 1)]
             W = self.__weights['W' + str(l)]
             dg = (A * (1 - A))
             dWdx = np.matmul(dZ[L - l], A.T) / m
-            dbdx = np.sum(dZ[L - l], axis=1, keepdims=True)
+            dbdx = np.sum(dZ[L - l], axis=1, keepdims=True) / m
             dzdx = dZ.append(np.matmul(W.T, dZ[L - l]) * dg)
             self.__weights['W' + str(l)] -= alpha * dWdx
             self.__weights['b' + str(l)] -= alpha * dbdx
