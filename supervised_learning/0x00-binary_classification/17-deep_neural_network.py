@@ -26,16 +26,16 @@ class DeepNeuralNetwork:
             self.weights['b' + str(i + 1)] = np.zeros((layers[i], 1))
 
     @property
-    def L():
+    def L(self):
         """ returns the L privatized property"""
         return self.__L
 
     @property
-    def cache():
+    def cache(self):
         """return the privatized cache property """
         return self.__cache
 
     @property
-    def weights():
+    def weights(self):
         """returns the privatized weight property """
         return self.__weights
