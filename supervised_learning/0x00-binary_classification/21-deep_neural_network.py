@@ -70,10 +70,9 @@ class DeepNeuralNetwork:
         """ calculates one pass of the gradient descent on NN"""
         m = np.shape(Y)[1]
         L = self.__L
-        C = self.__cache
-        dZ = [C['A' + str(L)] - Y]
+        dZ = [cache['A' + str(L)] - Y]
         for l in range(L, 0, -1):
-            A = C['A' + str(l - 1)]
+            A = cache['A' + str(l - 1)]
             W = self.__weights['W' + str(l)]
             dg = (A * (1 - A))
             dWdx = np.matmul(dZ[L - l], A.T) / m
