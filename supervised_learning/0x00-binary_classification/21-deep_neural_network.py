@@ -72,7 +72,7 @@ class DeepNeuralNetwork:
         L = self.__L
         dZ = [cache['A' + str(L)] - Y]
         for l in range(L, 0, -1):
-            A = cache['A' + str(l - 1)]
+            A = self.__cache['A' + str(l - 1)]
             W = self.__weights['W' + str(l)]
             dg = (A * (1 - A))
             dWdx = np.matmul(dZ[L - l], A.T) / m
