@@ -71,14 +71,13 @@ class DeepNeuralNetwork:
         m = np.shape(Y)[1]
         L = self.__L
         C = self.__cache
-        WN = self.__weights
-        Zderivatives = [C['A' + str(L)] - Y]
-        for l in range (L, 0, -1):
+        dZ = [C['A' + str(L)] - Y]
+        for l in range(L, 0, -1):
             A = C['A' + str(l - 1)]
-            W = WN['W' + str(l)]
+            W = self.__weights['W' + str(l)]
             dg = (A * (1 - A))
-            dWdx = np.matmul(Zderivatives[L - l], A.T) / m
-            dbdx = np.sum(Zderivatives[L - l], axis=1, keepdims=True)
-            dzdx = Zderivatives.append(np.matmul(W.T, Zderivatives[L - l]) * dg)
+            dWdx = np.matmul(dZ[L - l], A.T) / m
+            dbdx = np.sum(dZ[L - l], axis=1, keepdims=True)
+            dzdx = dZ.append(np.matmul(W.T, dZ[L - l]) * dg)
             self.__weights['W' + str(l)] -= alpha * dWdx
             self.__weights['b' + str(l)] -= alpha * dbdx
