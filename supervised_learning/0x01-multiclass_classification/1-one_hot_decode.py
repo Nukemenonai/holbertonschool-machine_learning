@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+""" this module contains the decode function"""
 
 import numpy as np
 
