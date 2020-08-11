@@ -9,5 +9,7 @@ def one_hot_decode(one_hot):
     """
     if type(one_hot) != np.ndarray:
         return None
+    if one_hot.ndim != 2:
+        return None
     decode = np.argmax(one_hot, axis=0)
     return decode
