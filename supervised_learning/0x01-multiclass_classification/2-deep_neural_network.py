@@ -5,6 +5,7 @@ import numpy as np
 import pickle
 import os
 
+
 def sigmoid(a):
     """ returns the sigmoid activation """
     return 1/(1 + np.exp(-a))
@@ -95,7 +96,7 @@ class DeepNeuralNetwork:
             raise TypeError("alpha must be a float")
         if alpha <= 0:
             raise ValueError("alpha must be positive")
-        if verbose == True or graph == True:
+        if verbose is True or graph is True:
             if type(step) != int:
                 raise TypeError("step must be an integer")
             if step <= 0 or step > iterations:
@@ -105,12 +106,12 @@ class DeepNeuralNetwork:
             A, cache = self.forward_prop(X)
             self.gradient_descent(Y, cache, alpha)
             cst = self.cost(Y, A)
-            if verbose == True:
+            if verbose is True:
                 if i % step == 0:
                     print("Cost after {} iterations: {}".format(i, cst))
                     cost.append(cst)
                     iters.append(i)
-        if graph == True:
+        if graph is True:
             plt.plot(cost, iters)
             plt.xlabel("iteration")
             plt.ylabel("cost")
@@ -123,7 +124,9 @@ class DeepNeuralNetwork:
         f = open(filename, 'wb')
         pickle.dump(self, f)
         f.close()
-        os.rename(filename, filename + '.pkl')
+        ext = os.path.splitext(filename)[-1].lower()
+        if ext != '.pkl':
+            os.rename(filename, filename + '.pkl')
 
     def load(filename):
         """ loads a pickled DeepNeuralNetwork object """
