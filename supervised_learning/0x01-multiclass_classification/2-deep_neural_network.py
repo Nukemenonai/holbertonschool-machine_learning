@@ -132,6 +132,7 @@ class DeepNeuralNetwork:
         """ loads a pickled DeepNeuralNetwork object """
         if not filename:
             return None
-        with open(filename, 'rb') as f:
-            pkl = pickle.load(f)
-            return pkl
+        else:
+            with open(filename, 'rb') as f:
+                pkl = pickle.load(f)
+                return pkl
