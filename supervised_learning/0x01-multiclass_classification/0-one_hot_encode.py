@@ -9,9 +9,11 @@ def one_hot_encode(Y, classes):
     m: number of examples
     maximum number of classes found in Y
     """
+    if type(Y) != np.ndarray or type(classes) != int:
+        return None
     encoding = np.zeros((classes, Y.shape[0]))
     for i in range(Y.shape[0]):
         if Y[i] > classes:
             return None
-        encoding[Y[i],i] = 1
+        encoding[Y[i], i] = 1
     return encoding
