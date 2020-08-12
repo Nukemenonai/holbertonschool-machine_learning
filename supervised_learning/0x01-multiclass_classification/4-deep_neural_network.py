@@ -77,7 +77,7 @@ class DeepNeuralNetwork:
                 if self.__activation == 'sig':
                     self.__cache['A' + str(i + 1)] = sigmoid(Z)
                 elif self.__activation == 'tanh':
-                    self.__cache['A' + str(i + 1)] = tanh(z)
+                    self.__cache['A' + str(i + 1)] = tanh(Z)
             else:
                 self.__cache['A' + str(i + 1)] = softmax(Z)
         return self.__cache['A' + str(self.__L)], self.__cache
@@ -103,7 +103,7 @@ class DeepNeuralNetwork:
         for l in range(L, 0, -1):
             A = cache['A' + str(l - 1)]
             W = self.__weights['W' + str(l)]
-            dg = (A * (1 - A)) if sa == 'sig' else 1 - (np.tanh(X))**2
+            dg = (A * (1 - A)) if sa == 'sig' else 1 - (np.tanh(A))**2
             dWdx = np.matmul(dZ[L - l], A.T) / m
             dbdx = np.sum(dZ[L - l], axis=1, keepdims=True) / m
             dzdx = dZ.append(np.matmul(W.T, dZ[L - l]) * dg)
