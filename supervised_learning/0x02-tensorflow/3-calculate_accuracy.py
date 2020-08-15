@@ -2,11 +2,8 @@
 
 import tensorflow as tf
 
-create_placeholders = __import__('0-create_placeholders').create_placeholders
-forward_prop = __import__('2-forward_prop').forward_prop
-calculate_accuracy = __import__('3-calculate_accuracy').calculate_accuracy
 
-x, y = create_placeholders(784, 10)
-y_pred = forward_prop(x, [256, 256, 10], [tf.nn.tanh, tf.nn.tanh, None])
-accuracy = calculate_accuracy(y, y_pred)
-print(accuracy)
+def calculate_accuracy(y, y_pred):
+    """ calculates the accuracy of a prediction """
+    acc = tf.equal(tf.argmax(y), tf.argmax(y_pred))
+    return tf.reduce_mean(tf.cast(acc, tf.float32))
