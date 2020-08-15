@@ -6,5 +6,4 @@ import tensorflow as tf
 
 def create_train_op(loss, alpha):
     """ creates the training operation from the network"""
-    return tf.GradientDescentOptimizer(alpha).minimize(loss)
-
+    return tf.train.GradientDescentOptimizer(alpha).minimize(loss)
