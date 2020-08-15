@@ -103,7 +103,7 @@ class DeepNeuralNetwork:
         for l in range(L, 0, -1):
             A = cache['A' + str(l - 1)]
             W = self.__weights['W' + str(l)]
-            dg = (A * (1 - A)) if sa == 'sig' else 1 - (np.tanh(A))**2
+            dg = (A * (1 - A)) if sa == 'sig' else 1 - A **2
             dWdx = np.matmul(dZ[L - l], A.T) / m
             dbdx = np.sum(dZ[L - l], axis=1, keepdims=True) / m
             dzdx = dZ.append(np.matmul(W.T, dZ[L - l]) * dg)
