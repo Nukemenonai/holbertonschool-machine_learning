@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+"""
+build, trains and saves a neural network classifier
+"""
+
 
 import tensorflow as tf
 create_placeholders = __import__('0-create_placeholders').create_placeholders
@@ -31,7 +35,8 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes,
             tr_acc = sess.run(accuracy, feed_dict={x: X_train, y: Y_train})
             val_cost = sess.run(loss, feed_dict={x: X_valid, y: Y_valid})
             val_acc = sess.run(accuracy, feed_dict={x: X_valid, y: Y_valid})
-            sess.run(train_op, feed_dict={x: X_train, y: Y_train})
+            if i < iterations:
+                sess.run(train_op, feed_dict={x: X_train, y: Y_train})
 
             if i % 100 == 0 or i == iterations:
                 print("After {} iterations:".format(i))
