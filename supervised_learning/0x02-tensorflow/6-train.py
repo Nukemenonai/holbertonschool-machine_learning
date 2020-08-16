@@ -26,6 +26,7 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes,
     tf.add_to_collection('accuracy', accuracy)
     train_op = create_train_op(loss, alpha)
     tf.add_to_collection('train_op', train_op)
+
     init = tf.global_variables_initializer()
     saver = tf.train.Saver()
     with tf.Session() as sess:
@@ -46,4 +47,5 @@ def train(X_train, Y_train, X_valid, Y_valid, layer_sizes,
             if i < iterations:
                 sess.run(train_op, feed_dict={x: X_train, y: Y_train})
 
-    return saver.save(sess, save_path)
+        save_path = saver.save(sess, save_path)
+    return save_path
