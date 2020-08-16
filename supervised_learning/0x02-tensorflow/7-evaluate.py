@@ -3,13 +3,12 @@
 evaluates the output of the neural network
 """
 
-
 import tensorflow as tf
 
 
 def evaluate(X, Y, save_path):
     """ evaluates the output of the NN"""
-    with tf.Session as sess:
+    with tf.Session() as sess:
         saver = tf.train.import_meta_graph(save_path + '.meta')
         saver.restore(sess, save_path)
         x = tf.get_collection('x')[0]
