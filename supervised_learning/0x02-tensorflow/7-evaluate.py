@@ -20,4 +20,4 @@ def evaluate(X, Y, save_path):
         pred = ses.run(y_pred, feed_dict={x: X, y: Y})
         acc = ses.run(accuracy, feed_dict={x: X, y: Y})
         cost = ses.run(loss, feed_dict={x: X, y: Y})
-    return output, acc, cost
+    return pred, acc, cost
