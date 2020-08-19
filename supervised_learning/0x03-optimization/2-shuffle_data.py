@@ -5,6 +5,8 @@ import numpy as np
 
 def shuffle_data(X, Y):
     """shuffles the data points in two matrices the same way"""
-    xS = np.random.permutation(X)
-    yS = np.random.permutation(Y)
-    return xS,yS
+    xC = np.copy(X)
+    yC = np.copy(Y)
+    assert len(xC) == len(yC)
+    r = np.random.permutation(len(xC))
+    return xC[r],yC[r]
