@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+""" contains the shuffle data function"""
+
 
 import numpy as np
 
