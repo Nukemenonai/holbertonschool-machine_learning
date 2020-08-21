@@ -10,7 +10,6 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
                      epochs=5, load_path="/tmp/model.ckpt",
                      save_path="/tmp/model.ckpt"):
     """ trains a neural network using mini batch gradient descent"""
-
     with tf.Session() as sess:
         saver = tf.train.import_meta_graph(load_path + '.meta')
         saver.restore(sess, load_path)
@@ -37,11 +36,10 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
             if i < epochs:
                 X_S, Y_S = shuffle_data(X_train, Y_train)
                 for j in range(mbit):
-                    first = j * batch_size
-                    last = (j + 1) * batch_size
-                    last = X_train.shape[0] if last > X_train.shape[0]
-                    else last
-                    ndict = {x: X_S[first:last], y: Y_S[first:last]}
+                    f = j * batch_size
+                    l = (j + 1) * batch_size
+                    l = X_train.shape[0] if l > X_train.shape[0] else l
+                    ndict = {x: X_S[f:l], y: Y_S[f:l]}
                     sess.run(train_op, feed_dict=ndict)
                     if j != 0 and (j + 1) % 100 == 0:
                         mcost = sess.run(loss, feed_dict=ndict)
@@ -49,6 +47,5 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
                         print("\tStep {}:".format(j + 1))
                         print("\t\tCost: {}".format(mcost))
                         print("\t\tAccuracy: {}".format(maccuracy))
-
         save_path = saver.save(sess, save_path)
     return save_path
