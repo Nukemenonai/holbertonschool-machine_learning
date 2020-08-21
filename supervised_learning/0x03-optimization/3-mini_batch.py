@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ contains the train_mini_batch module"""
 
-import numpy as np
+
 import tensorflow as tf
 shuffle_data = __import__('2-shuffle_data').shuffle_data
 
@@ -30,16 +30,17 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
             val_acc = sess.run(accuracy, feed_dict={x: X_valid, y: Y_valid})
             print("After {} epochs".format(i))
             print("\tTraining Cost: {}".format(train_cost))
-            print("\tTraining Accuracy: {}".format(train_accuracy))
+            print("\tTraining Accuracy: {}".format(train_acc))
             print("\tValidation Cost: {}".format(val_cost))
-            print("\tValidation Accuracy: {}".format(val_accuracy))
+            print("\tValidation Accuracy: {}".format(val_acc))
 
             if i < epochs:
                 X_S, Y_S = shuffle_data(X_train, Y_train)
                 for j in range(mbit):
                     first = j * batch_size
                     last = (j + 1) * batch_size
-                    last = X_train.shape[0] if last > X_train.shape[0] else last
+                    last = X_train.shape[0] if last > X_train.shape[0]
+                    else last
                     ndict = {x: X_S[first:last], y: Y_S[first:last]}
                     sess.run(train_op, feed_dict=ndict)
                     if j != 0 and (j + 1) % 100 == 0:

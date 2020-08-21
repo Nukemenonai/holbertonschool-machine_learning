@@ -9,4 +9,4 @@ def shuffle_data(X, Y):
     yC = np.copy(Y)
     assert len(xC) == len(yC)
     r = np.random.permutation(len(xC))
-    return xC[r],yC[r]
+    return xC[r], yC[r]

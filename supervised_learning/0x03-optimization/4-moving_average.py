@@ -7,8 +7,8 @@ def moving_average(data, beta):
     li = []
     V = 0
     for i in range(len(data)):
-    	Vt = (beta * V) + ((1 - beta) * data[i])
-	corr = Vt / (1 - (beta ** (i + 1)))
-	li.append(corr)
-	V = Vt
+        Vt = (beta * V) + ((1 - beta) * data[i])
+        corr = Vt / (1 - (beta ** (i + 1)))
+        li.append(corr)
+        V = Vt
     return li
