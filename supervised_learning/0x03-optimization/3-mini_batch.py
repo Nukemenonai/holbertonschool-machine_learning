@@ -36,10 +36,10 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
             if i < epochs:
                 X_S, Y_S = shuffle_data(X_train, Y_train)
                 for j in range(mbit):
-                    f = j * batch_size
-                    l = (j + 1) * batch_size
-                    l = X_train.shape[0] if l > X_train.shape[0] else l
-                    ndict = {x: X_S[f:l], y: Y_S[f:l]}
+                    fi = j * batch_size
+                    la = (j + 1) * batch_size
+                    la = X_train.shape[0] if la > X_train.shape[0] else la
+                    ndict = {x: X_S[fi:la], y: Y_S[fi:la]}
                     sess.run(train_op, feed_dict=ndict)
                     if j != 0 and (j + 1) % 100 == 0:
                         mcost = sess.run(loss, feed_dict=ndict)
