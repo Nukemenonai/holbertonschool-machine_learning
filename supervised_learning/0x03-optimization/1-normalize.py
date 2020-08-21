@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" """
+""" this module contains the normalize function"""
 
 import numpy as np
 
