@@ -29,10 +29,10 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
             mbiter = (int(mbiter) + 1)
 
         for i in range(epochs + 1):
-            tr_cost = ses.run(loss, feed_dict={x: X_train, y: Y_train})
-            tr_acc = ses.run(accuracy, feed_dict={x: X_train, y: Y_train})
-            val_cost = ses.run(loss, feed_dict={x: X_valid, y: Y_valid})
-            val_acc = ses.run(accuracy, feed_dict={x: X_valid, y: Y_valid})
+            tr_cost = sess.run(loss, feed_dict={x: X_train, y: Y_train})
+            tr_acc = sess.run(accuracy, feed_dict={x: X_train, y: Y_train})
+            val_cost = sess.run(loss, feed_dict={x: X_valid, y: Y_valid})
+            val_acc = sess.run(accuracy, feed_dict={x: X_valid, y: Y_valid})
             print('After {} epochs:'.format(i))
             print('\tTraining Cost: {}'.format(tr_cost))
             print('\tTraining Accuracy: {}'.format(tr_acc))
