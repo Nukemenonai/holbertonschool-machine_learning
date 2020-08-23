@@ -48,10 +48,10 @@ def train_mini_batch(X_train, Y_train, X_valid, Y_valid, batch_size=32,
                     if lst > X_train.shape[0]:
                         lst = X_train.shape[0]
                     ndict = {x: X_s[fst:lst], y: Y_s[fst:lst]}
-                    ses.run(train_op, feed_dict=ndict)
+                    sess.run(train_op, feed_dict=ndict)
                     if j != 0 and (j + 1) % 100 == 0:
-                        M_cost = ses.run(loss, feed_dict=ndict)
-                        M_acc = ses.run(accuracy, feed_dict=ndict)
+                        M_cost = sess.run(loss, feed_dict=ndict)
+                        M_acc = sess.run(accuracy, feed_dict=ndict)
                         print("\tStep {}:".format(j + 1))
                         print("\t\tCost: {}".format(M_cost))
                         print("\t\tAccuracy: {}".format(M_acc))
