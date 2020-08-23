@@ -12,7 +12,7 @@ def create_batch_norm_layer(prev, n, activation):
     n: number of nodes in layer"""
 
     init = tf.contrib.layers.variance_scaling_initializer(mode="FAN_AVG")
-    layers = tf.layers.Dense(units=n, kernel_initializer=w_init)
+    layers = tf.layers.Dense(units=n, kernel_initializer=init)
     Z = layers(prev)
 
     gamma = tf.Variable(tf.constant(1.0, shape=[n]), trainable=True)
