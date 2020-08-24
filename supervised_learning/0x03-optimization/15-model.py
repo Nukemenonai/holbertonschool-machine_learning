@@ -40,6 +40,13 @@ def model(Data_train, Data_valid, layers, activations,
     """builds trains and saves a neural network model in tensorflow using
     adam optimization, mini batch gradient descent,  learning rate decay and
     batch optimization"""
+
+    mbiter = Data_train[0].shape[0] / batch_size
+    if (mbiter).is_integer() is True:
+        mbiter = int(mbiter)
+    else:
+        mbiter = (int(mbiter) + 1)
+
     x = tf.placeholder(tf.float32, shape=[None, Data_train[0].shape[1]],
                        name='x')
     y = tf.placeholder(tf.float32, shape=[None, Data_train[1].shape[1]],
@@ -47,15 +54,9 @@ def model(Data_train, Data_valid, layers, activations,
     y_pred = forward_prop(x, layers, activations)
     accuracy = calc_accuracy(y, y_pred)
     loss = calc_loss(y, y_pred)
-    global_step = tf.Variable(0, trainable=False, name='step')
+    global_step = tf.Variable(0, trainable=False)
     alpha = learning_rate_decay(alpha, decay_rate, global_step, 1)
     train_op = create_Adam_op(loss, alpha, beta1, beta2, epsilon)
-
-    mbiter = Data_train[0].shape[0] / batch_size
-    if (mbiter).is_integer() is True:
-        mbiter = int(mbiter)
-    else:
-        mbiter = (int(mbiter) + 1)
 
     tf.add_to_collection('x', x)
     tf.add_to_collection('y', y)
