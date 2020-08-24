@@ -19,7 +19,7 @@ def forward_prop(x, layers, activations):
     return A
 
 
-def accuracy(y, y_pred):
+def calc_accuracy(y, y_pred):
     """computes accuracy of prediction"""
     y_idx = tf.math.argmax(y, axis=1)
     p_idx = tf.math.argmax(y_pred, axis=1)
@@ -29,7 +29,7 @@ def accuracy(y, y_pred):
     return acc
 
 
-def loss(y, y_pred):
+def calc_loss(y, y_pred):
     """computes the loss of the prediction"""
     return tf.losses.softmax_cross_entropy(y, y_pred)
 
@@ -45,8 +45,8 @@ def model(Data_train, Data_valid, layers, activations,
     y = tf.placeholder(tf.float32, shape=[None, Data_train[1].shape[1]],
                        name='y')
     y_pred = forward_prop(x, layers, activations)
-    accuracy = accuracy(y, y_pred)
-    loss = loss(y, y_pred)
+    accuracy = calc_accuracy(y, y_pred)
+    loss = calc_loss(y, y_pred)
     global_step = tf.Variable(0, trainable=False, name='step')
     alpha = learning_rate_decay(alpha, decay_rate, global_step, 1)
     train_op = create_Adam_op(loss, alpha, beta1, beta2, epsilon)
@@ -67,7 +67,7 @@ def model(Data_train, Data_valid, layers, activations,
     init = tf.global_variables_initializer()
     saver = tf.train.Saver()
     with tf.Session() as sess:
-        ses.run(init)
+        sess.run(init)
 
         tr_inputs = {x: Data_train[0], y: Data_train[1]}
         val_inputs = {x: Data_valid[0], y: Data_valid[1]}
@@ -86,17 +86,17 @@ def model(Data_train, Data_valid, layers, activations,
             if i < epochs:
                 X_s, Y_s = shuffle_data(Data_train[0], Data_train[1])
                 sess.run(global_step.assign(i))
-                a = sess.run(alpha)
+                sess.run(alpha)
 
                 for j in range(mbiter):
                     fst = j * batch_size
                     lst = (j + 1) * batch_size
                     if lst > Data_train[0].shape[0]:
                         lst = Data_train[0].shape[0]
-                    ndict = {x: X_s[fst:lst], y: X_s[fst:lst]}
+                    ndict = {x: X_s[fst:lst], y: Y_s[fst:lst]}
                     sess.run(train_op, feed_dict=ndict)
 
-                    if j != 0 and (j + 1) % 0 == 100:
+                    if j != 0 and (j + 1) % 100 == 0:
                         mcost = sess.run(loss, ndict)
                         macc = sess.run(accuracy, ndict)
                         print("\tStep {}:".format(j + 1))
