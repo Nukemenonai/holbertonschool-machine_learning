@@ -27,6 +27,7 @@ def shuffle_data(X, Y):
     r = np.random.permutation(len(xC))
     return xC[r], yC[r]
 
+
 def create_Adam_op(loss, alpha, beta1, beta2, epsilon):
     """creates Adam optimization operation with tensorflow"""
     return tf.train.AdamOptimizer(learning_rate=alpha,
@@ -51,7 +52,7 @@ def create_batch_norm_layer(prev, n, activation):
     n: number of nodes in layer"""
     if not activation:
         return create_layer(prev, n, activation)
- 
+
     init = tf.contrib.layers.variance_scaling_initializer(mode="FAN_AVG")
     layers = tf.layers.Dense(units=n, kernel_initializer=init)
     Z = layers(prev)
@@ -68,12 +69,13 @@ def create_batch_norm_layer(prev, n, activation):
 
     return activation(Z_norm)
 
+
 def forward_prop(x, layers, activations):
     """performs forward propagation on the neural network"""
     A = create_batch_norm_layer(x, layers[0], activations[0])
     for i in range(1, len(activations)):
         A = create_batch_norm_layer(A, layers[i], activations[i])
-    return A    
+    return A
 
 
 def calc_accuracy(y, y_pred):
@@ -87,11 +89,11 @@ def calc_loss(y, y_pred):
     return tf.losses.softmax_cross_entropy(y, y_pred)
 
 
-def model(Data_train, Data_valid, layers, activations, 
-          alpha=0.001, beta1=0.9, beta2=0.999, epsilon=1e-8, decay_rate=1, 
+def model(Data_train, Data_valid, layers, activations,
+          alpha=0.001, beta1=0.9, beta2=0.999, epsilon=1e-8, decay_rate=1,
           batch_size=32, epochs=5, save_path='/tmp/model.ckpt'):
-    """builds trains and saves a neural network model in tensorflow using 
-    adam optimization, mini batch gradient descent,  learning rate decay and 
+    """builds trains and saves a neural network model in tensorflow using
+    adam optimization, mini batch gradient descent,  learning rate decay and
     batch optimization"""
 
     mbiter = Data_train[0].shape[0] / batch_size
@@ -100,8 +102,10 @@ def model(Data_train, Data_valid, layers, activations,
     else:
         mbiter = (int(mbiter) + 1)
 
-    x = tf.placeholder(tf.float32, shape=[None, Data_train[0].shape[1]], name='x')
-    y = tf.placeholder(tf.float32, shape=[None, Data_train[1].shape[1]], name='y')
+    x = tf.placeholder(tf.float32, shape=[None, Data_train[0].shape[1]],
+                       name='x')
+    y = tf.placeholder(tf.float32, shape=[None, Data_train[1].shape[1]],
+                       name='y')
     y_pred = forward_prop(x, layers, activations)
     accuracy = calc_accuracy(y, y_pred)
     loss = calc_loss(y, y_pred)
@@ -121,8 +125,8 @@ def model(Data_train, Data_valid, layers, activations,
     with tf.Session() as sess:
         sess.run(init)
 
-        tr_inputs = {x:Data_train[0], y:Data_train[1]}
-        val_inputs = {x:Data_valid[0], y:Data_valid[1]}
+        tr_inputs = {x: Data_train[0], y: Data_train[1]}
+        val_inputs = {x: Data_valid[0], y: Data_valid[1]}
 
         for i in range(epochs + 1):
             tr_cost = sess.run(loss, tr_inputs)
@@ -147,7 +151,7 @@ def model(Data_train, Data_valid, layers, activations,
                         lst = Data_train[0].shape[0]
                     ndict = {x: X_s[fst:lst], y: Y_s[fst:lst]}
                     sess.run(train_op, feed_dict=ndict)
-                    
+
                     if j != 0 and (j + 1) % 100 == 0:
                         mcost = sess.run(loss, ndict)
                         macc = sess.run(accuracy, ndict)
@@ -155,4 +159,4 @@ def model(Data_train, Data_valid, layers, activations,
                         print("\t\tCost: {}".format(mcost))
                         print("\t\tAccuracy: {}".format(macc))
         save_path = saver.save(sess, save_path)
-    return save_path 
+    return save_path
