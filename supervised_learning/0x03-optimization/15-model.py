@@ -13,7 +13,7 @@ create_batch_norm_layer = __import__('14-batch_norm').create_batch_norm_layer
 
 def forward_prop(x, layers, activations):
     """performs forward propagation on the neural network"""
-    A = create_batch_norm_layer()
+    A = create_batch_norm_layer(x, layers[0], activations[0])
     for i in range(1, activations.shape[0]):
         A = create_batch_norm_layer(A, layers[i], activations[i])
     return A
