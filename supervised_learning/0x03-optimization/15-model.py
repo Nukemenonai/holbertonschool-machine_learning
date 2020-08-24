@@ -16,7 +16,7 @@ def forward_prop(x, layers, activations):
     A = create_batch_norm_layer()
     for i in range(1, activations.shape[0]):
         A = create_batch_norm_layer(A, layers[i], activations[i])
-    return A    
+    return A
 
 
 def accuracy(y, y_pred):
@@ -34,21 +34,23 @@ def loss(y, y_pred):
     return tf.losses.softmax_cross_entropy(y, y_pred)
 
 
-def model(Data_train, Data_valid, layers, activations, 
-          alpha=0.001, beta1=0.9, beta2=0.999, epsilon=1e-8, decay_rate=1, 
+def model(Data_train, Data_valid, layers, activations,
+          alpha=0.001, beta1=0.9, beta2=0.999, epsilon=1e-8, decay_rate=1,
           batch_size=32, epochs=5, save_path='/tmp/model.ckpt'):
-    """builds trains and saves a neural network model in tensorflow using 
-    adam optimization, mini batch gradient descent,  learning rate decay and 
+    """builds trains and saves a neural network model in tensorflow using
+    adam optimization, mini batch gradient descent,  learning rate decay and
     batch optimization"""
-    x = tf.placeholder(tf.float32, shape=[None, Data_train[0].shape[1]], name='x')
-    y = tf.placeholder(tf.float32, shape=[None, Data_train[1].shape[1]], name='y')
+    x = tf.placeholder(tf.float32, shape=[None, Data_train[0].shape[1]],
+                       name='x')
+    y = tf.placeholder(tf.float32, shape=[None, Data_train[1].shape[1]],
+                       name='y')
     y_pred = forward_prop(x, layers, activations)
     accuracy = accuracy(y, y_pred)
     loss = loss(y, y_pred)
     global_step = tf.Variable(0, trainable=False, name='step')
     alpha = learning_rate_decay(alpha, decay_rate, global_step, 1)
     train_op = create_Adam_op(loss, alpha, beta1, beta2, epsilon)
-    
+
     mbiter = Data_train[0].shape[0] / batch_size
     if (mbiter).is_integer() is True:
         mbiter = int(mbiter)
@@ -57,7 +59,7 @@ def model(Data_train, Data_valid, layers, activations,
 
     tf.add_to_collection('x', x)
     tf.add_to_collection('y', y)
-    tf.add_to_collection('y_pred',y_pred)
+    tf.add_to_collection('y_pred', y_pred)
     tf.add_to_collection('accuracy', accuracy)
     tf.add_to_collection('loss', loss)
     tf.add_to_collection('train_op', train_op)
@@ -67,8 +69,8 @@ def model(Data_train, Data_valid, layers, activations,
     with tf.Session() as sess:
         ses.run(init)
 
-        tr_inputs = {x:Data_train[0], y:Data_train[1]}
-        val_inputs = {x:Data_valid[0], y:Data_train[1]}
+        tr_inputs = {x: Data_train[0], y: Data_train[1]}
+        val_inputs = {x: Data_valid[0], y: Data_valid[1]}
 
         for i in range(epochs + 1):
             tr_cost = sess.run(loss, tr_inputs)
@@ -91,9 +93,9 @@ def model(Data_train, Data_valid, layers, activations,
                     lst = (j + 1) * batch_size
                     if lst > Data_train[0].shape[0]:
                         lst = Data_train[0].shape[0]
-                    ndict = {x: X_s[fst:lst], y:X_s[fst:lst]}
+                    ndict = {x: X_s[fst:lst], y: X_s[fst:lst]}
                     sess.run(train_op, feed_dict=ndict)
-                    
+
                     if j != 0 and (j + 1) % 0 == 100:
                         mcost = sess.run(loss, ndict)
                         macc = sess.run(accuracy, ndict)
@@ -101,4 +103,4 @@ def model(Data_train, Data_valid, layers, activations,
                         print("\t\tCost: {}".format(mcost))
                         print("\t\tAccuracy: {}".format(macc))
         save_path = saver.save(sess, save_path)
-    return save_path 
+    return save_path
