@@ -4,29 +4,82 @@
 import numpy as np
 import tensorflow as tf
 
-shuffle_data = __import__('2-shuffle_data').shuffle_data
-train_mini_batch = __import__('3-mini_batch').train_mini_batch
-create_Adam_op = __import__('10-Adam').create_Adam_op
-learning_rate_decay = __import__('12-learning_rate_decay').learning_rate_decay
-create_batch_norm_layer = __import__('14-batch_norm').create_batch_norm_layer
 
+def create_layer(prev, n, activation):
+    """
+    We have to use this function only in the last layer
+    because we dont have to normalize the output
+    Returns: the tensor output of the layer
+    """
+
+    init = tf.contrib.layers.variance_scaling_initializer(mode="FAN_AVG")
+    A = tf.layers.Dense(units=n, name='layer', activation=activation,
+                        kernel_initializer=init)
+    Y_pred = A(prev)
+    return (Y_pred)
+
+
+def shuffle_data(X, Y):
+    """shuffles the data points in two matrices the same way"""
+    xC = np.copy(X)
+    yC = np.copy(Y)
+    assert len(xC) == len(yC)
+    r = np.random.permutation(len(xC))
+    return xC[r], yC[r]
+
+def create_Adam_op(loss, alpha, beta1, beta2, epsilon):
+    """creates Adam optimization operation with tensorflow"""
+    return tf.train.AdamOptimizer(learning_rate=alpha,
+                                  beta1=beta1,
+                                  beta2=beta2,
+                                  epsilon=epsilon).minimize(loss)
+
+
+def learning_rate_decay(alpha, decay_rate, global_step, decay_step):
+    """creates the learning rate decay operation using tensorflow"""
+    return tf.train.inverse_time_decay(alpha,
+                                       global_step,
+                                       decay_step,
+                                       decay_rate,
+                                       staircase=True)
+
+
+def create_batch_norm_layer(prev, n, activation):
+    """creates a batch normalization layer for a neural network
+    in tensorflow
+    prev: activated output of previous layer
+    n: number of nodes in layer"""
+    if not activation:
+        return create_layer(prev, n, activation)
+ 
+    init = tf.contrib.layers.variance_scaling_initializer(mode="FAN_AVG")
+    layers = tf.layers.Dense(units=n, kernel_initializer=init)
+    Z = layers(prev)
+
+    gamma = tf.Variable(tf.constant(1.0, shape=[n]), trainable=True)
+    beta = tf.Variable(tf.constant(0.0, shape=[n]), trainable=True)
+
+    epsilon = tf.constant(1e-8)
+
+    mean, variance = tf.nn.moments(Z, axes=[0])
+    Z_norm = tf.nn.batch_normalization(x=Z, mean=mean, variance=variance,
+                                       offset=beta, scale=gamma,
+                                       variance_epsilon=epsilon)
+
+    return activation(Z_norm)
 
 def forward_prop(x, layers, activations):
     """performs forward propagation on the neural network"""
     A = create_batch_norm_layer(x, layers[0], activations[0])
     for i in range(1, len(activations)):
         A = create_batch_norm_layer(A, layers[i], activations[i])
-    return A
+    return A    
 
 
 def calc_accuracy(y, y_pred):
-    """computes accuracy of prediction"""
-    y_idx = tf.math.argmax(y, axis=1)
-    p_idx = tf.math.argmax(y_pred, axis=1)
-    c = tf.math.equal(y_idx, p_idx)
-    cast = tf.cast(c, dtype=tf.float32)
-    acc = tf.math.reduce_mean(cast)
-    return acc
+    """ calculates the accuracy of a prediction """
+    acc = tf.equal(tf.argmax(y, axis=1), tf.argmax(y_pred, axis=1))
+    return tf.reduce_mean(tf.cast(acc, tf.float32))
 
 
 def calc_loss(y, y_pred):
@@ -34,11 +87,11 @@ def calc_loss(y, y_pred):
     return tf.losses.softmax_cross_entropy(y, y_pred)
 
 
-def model(Data_train, Data_valid, layers, activations,
-          alpha=0.001, beta1=0.9, beta2=0.999, epsilon=1e-8, decay_rate=1,
+def model(Data_train, Data_valid, layers, activations, 
+          alpha=0.001, beta1=0.9, beta2=0.999, epsilon=1e-8, decay_rate=1, 
           batch_size=32, epochs=5, save_path='/tmp/model.ckpt'):
-    """builds trains and saves a neural network model in tensorflow using
-    adam optimization, mini batch gradient descent,  learning rate decay and
+    """builds trains and saves a neural network model in tensorflow using 
+    adam optimization, mini batch gradient descent,  learning rate decay and 
     batch optimization"""
 
     mbiter = Data_train[0].shape[0] / batch_size
@@ -47,10 +100,8 @@ def model(Data_train, Data_valid, layers, activations,
     else:
         mbiter = (int(mbiter) + 1)
 
-    x = tf.placeholder(tf.float32, shape=[None, Data_train[0].shape[1]],
-                       name='x')
-    y = tf.placeholder(tf.float32, shape=[None, Data_train[1].shape[1]],
-                       name='y')
+    x = tf.placeholder(tf.float32, shape=[None, Data_train[0].shape[1]], name='x')
+    y = tf.placeholder(tf.float32, shape=[None, Data_train[1].shape[1]], name='y')
     y_pred = forward_prop(x, layers, activations)
     accuracy = calc_accuracy(y, y_pred)
     loss = calc_loss(y, y_pred)
@@ -70,8 +121,8 @@ def model(Data_train, Data_valid, layers, activations,
     with tf.Session() as sess:
         sess.run(init)
 
-        tr_inputs = {x: Data_train[0], y: Data_train[1]}
-        val_inputs = {x: Data_valid[0], y: Data_valid[1]}
+        tr_inputs = {x:Data_train[0], y:Data_train[1]}
+        val_inputs = {x:Data_valid[0], y:Data_valid[1]}
 
         for i in range(epochs + 1):
             tr_cost = sess.run(loss, tr_inputs)
@@ -96,7 +147,7 @@ def model(Data_train, Data_valid, layers, activations,
                         lst = Data_train[0].shape[0]
                     ndict = {x: X_s[fst:lst], y: Y_s[fst:lst]}
                     sess.run(train_op, feed_dict=ndict)
-
+                    
                     if j != 0 and (j + 1) % 100 == 0:
                         mcost = sess.run(loss, ndict)
                         macc = sess.run(accuracy, ndict)
@@ -104,4 +155,4 @@ def model(Data_train, Data_valid, layers, activations,
                         print("\t\tCost: {}".format(mcost))
                         print("\t\tAccuracy: {}".format(macc))
         save_path = saver.save(sess, save_path)
-    return save_path
+    return save_path 
