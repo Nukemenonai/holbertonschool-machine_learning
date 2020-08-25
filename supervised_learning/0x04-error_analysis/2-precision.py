@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""""""
+"""precision module"""
 
 import numpy as np
 
