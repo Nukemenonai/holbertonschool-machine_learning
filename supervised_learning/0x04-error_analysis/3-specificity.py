@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""specificity modula"""
 
 import numpy as np
 
