@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+"""f1 score module """
+
 
 import numpy as np
 
