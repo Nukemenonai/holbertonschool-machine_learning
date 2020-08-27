@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
-""""""
+"""l2_reg_cost"""
 
-
-import numpy as np
 import tensorflow as tf
 
 
