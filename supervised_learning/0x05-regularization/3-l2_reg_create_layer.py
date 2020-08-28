@@ -9,5 +9,6 @@ def l2_reg_create_layer(prev, n, activation, lambtha):
 
     weights = tf.contrib.layers.variance_scaling_initializer(mode="FAN_AVG")
     reg = tf.contrib.layers.l2_regularizer(scale=lambtha)
-    return tf.layers.Dense(n, activation, True,
-                           weights, name='layer').apply(prev)
+    return tf.layers.Dense(n, activation,
+                           kernel_initializer=weights,
+                           kernel_regularizer=reg).apply(prev)
