@@ -3,6 +3,7 @@
 
 import numpy as np
 
+
 def tanh(a):
     """ returns a tanh activation"""
     return np.tanh(a)
