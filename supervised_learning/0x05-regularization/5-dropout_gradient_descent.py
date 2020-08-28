@@ -18,6 +18,6 @@ def dropout_gradient_descent(Y, weights, cache, alpha, keep_prob, L):
         dbdx = np.sum(dZ[L - ls], axis=1, keepdims=True) / m
         if ls != 1:
             reg_drop = dg * (cache['D' + str(ls - 1)] / keep_prob)
-            dzdx = dZ.append(np.matmul(W.T, dZ[L - ls]) * dg)
+            dzdx = dZ.append(np.matmul(W.T, dZ[L - ls]) * reg_drop)
         weights['W' + str(ls)] -= alpha * dWdx
         weights['b' + str(ls)] -= alpha * dbdx
