@@ -30,15 +30,16 @@ def train_model(network, data, labels, batch_size, epochs,
             c = K.callbacks.LearningRateScheduler(decayed_learning_rate,
                                                   verbose=1)
             callback_list.append(c)
+
         if save_best:
             s = callbacks.ModelCheckpoint(filepath,
-                                      monitor='val_loss', verbose=0,
-                                      save_best_only=False,
-                                      save_weights_only=False,
-                                      mode='min',
-                                      save_freq='epoch',
-                                      options=None)
-            callback_list.append(c)
+                                          monitor='val_loss', verbose=0,
+                                          save_best_only=False,
+                                          save_weights_only=False,
+                                          mode='min',
+                                          save_freq='epoch',
+                                          options=None)
+            callback_list.append(s)
 
     history = network.fit(x=data,
                           y=labels,
