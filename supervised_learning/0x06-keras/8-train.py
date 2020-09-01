@@ -31,16 +31,13 @@ def train_model(network, data, labels, batch_size, epochs,
                                                   verbose=1)
             callback_list.append(c)
 
-        if save_best and filepath:
+        if filepath:
             s = callbacks.ModelCheckpoint(filepath,
                                           monitor='val_loss', verbose=0,
-                                          save_best_only=False,
-                                          save_weights_only=False,
-                                          mode='min',
-                                          save_freq='epoch',
-                                          options=None)
+                                          save_best_only=save_best,
+                                          mode='min')
             callback_list.append(s)
-
+    
     history = network.fit(x=data,
                           y=labels,
                           batch_size=batch_size,
