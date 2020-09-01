@@ -32,7 +32,7 @@ def train_model(network, data, labels, batch_size, epochs,
             callback_list.append(c)
 
         if filepath:
-            s = callbacks.ModelCheckpoint(filepath,
+            s = K.callbacks.ModelCheckpoint(filepath,
                                           save_best_only=save_best,
                                           mode='min')
             callback_list.append(s)
