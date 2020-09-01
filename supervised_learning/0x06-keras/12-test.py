@@ -12,5 +12,5 @@ def test_model(network, data, labels, verbose=True):
     verbose: boolean that determines if output should be printed
     during the testing process
     Returns: the loss and accuracy of the model"""
-    loss, acc = network.evaluate(x=data, y=labels, verbose=verbose)
-    return loss, acc
+    loss_n_acc = network.evaluate(x=data, y=labels, verbose=verbose)
+    return loss_n_acc
