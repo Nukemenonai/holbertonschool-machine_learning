@@ -3,7 +3,7 @@
 saving and loading a model
 """
 
-import tensorflow.kearas as K
+import tensorflow.keras as K
 
 
 def save_model(network, filename):
