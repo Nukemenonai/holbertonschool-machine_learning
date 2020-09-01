@@ -31,7 +31,7 @@ def train_model(network, data, labels, batch_size, epochs,
                                                   verbose=1)
             callback_list.append(c)
 
-        if save_best:
+        if save_best and filepath:
             s = callbacks.ModelCheckpoint(filepath,
                                           monitor='val_loss', verbose=0,
                                           save_best_only=False,
