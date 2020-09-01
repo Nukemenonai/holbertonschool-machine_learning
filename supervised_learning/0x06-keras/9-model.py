@@ -8,7 +8,8 @@ import tensorflow.keras as K
 
 def save_model(network, filename):
     """saves an entire model:"""
-    network.save(filename)
+    K.models.save_model(model=network,
+                        filepath=filename)
     return None
 
 
