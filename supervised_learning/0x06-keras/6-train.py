@@ -5,7 +5,8 @@
 import tensorflow.keras as K
 
 
-def train_model(network, data, labels, batch_size, epochs, validation_data=None,
+def train_model(network, data, labels, batch_size, epochs,
+                validation_data=None,
                 early_stopping=False, patience=0, verbose=True, shuffle=False):
     """ trains a model using mini batch gradient descent
     validation_data is the data to validate the model with, if not None
@@ -13,11 +14,11 @@ def train_model(network, data, labels, batch_size, epochs, validation_data=None,
     early stopping should be based on validation loss
     patience is the patience used for early stopping
     """
-    callback_list = []
+    callback_list = None
 
     if validation_data:
-        callback_list.append(K.callbacks.EarlyStopping(monitor='val_loss',
-                                                        patience=patience))
+        callback_list = [K.callbacks.EarlyStopping(monitor='val_loss',
+                                                   patience=patience)]
     history = network.fit(x=data,
                           y=labels,
                           batch_size=batch_size,
