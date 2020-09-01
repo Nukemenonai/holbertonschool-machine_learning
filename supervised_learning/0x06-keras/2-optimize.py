@@ -9,6 +9,6 @@ def optimize_model(network, alpha, beta1, beta2):
     categorical crossentropy loss and accuracy metrics:"""
     Adam = K.optimizers.Adam(learning_rate=alpha,
                              beta_1=beta1, beta_2=beta2)
-    network.compile(loss=K.losses.CategoricalCrossentropy(),
+    network.compile(loss='categorical_crossentropy',
                     optimizer=Adam, metrics=['accuracy'])
     return None
