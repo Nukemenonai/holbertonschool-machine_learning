@@ -8,8 +8,8 @@ def convolve_grayscale_valid(images, kernel):
     """ performas valid convolution on grayscale images"""
     m, h, w = images.shape
     kh, kw = kernel.shape
-    output_h = (h - kh +1)
-    output_w = (w - kw +1)
+    output_h = (h - kh + 1)
+    output_w = (w - kw + 1)
     conv = np.zeros((m, output_h, output_w))
     for i in range(output_h):
         for j in range(output_w):
@@ -17,6 +17,6 @@ def convolve_grayscale_valid(images, kernel):
             s_c = sector * kernel
             p = np.sum(s_c, axis=1)
             p2 = np.sum(p, axis=1)
-            conv[:,i,j] = p2
+            conv[:, i, j] = p2
 
     return conv
