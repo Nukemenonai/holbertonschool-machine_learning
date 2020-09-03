@@ -15,9 +15,8 @@ def convolve_grayscale_valid(images, kernel):
         for j in range(output_w):
             sector = images[:, i:i+kh, j:j+kw]
             s_c = sector * kernel
-            print(s_c)
-            p = np.sum(s_c)
-            p2 = np.sum(p)
+            p = np.sum(s_c, axis=1)
+            p2 = np.sum(p, axis=1)
             conv[:,i,j] = p2
 
     return conv
