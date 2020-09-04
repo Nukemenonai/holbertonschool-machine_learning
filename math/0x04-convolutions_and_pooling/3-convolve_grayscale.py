@@ -23,8 +23,8 @@ def convolve_grayscale(images, kernel, padding='same', stride=(1, 1)):
     output_h = (((h + (pad_h * 2) - kh) // sh) + 1)
     output_w = (((w + (pad_w * 2) - kw) // sw) + 1)
     conv = np.zeros((m, output_h, output_w))
-    for i in range(output_h):
-        for j in range(output_w):
+    for i in range(0, output_h):
+        for j in range(0, output_w):
             sector = padded[:, (i * sh):(sh * i) + kh,
                             (j * sw):(sw * j) + kw]
             s_c = sector * kernel
