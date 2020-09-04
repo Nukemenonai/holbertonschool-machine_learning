@@ -4,7 +4,7 @@
 import numpy as np
 
 
-def convolve_grayscale_same(images, kernel):
+def convolve_grayscale_padding(images, kernel, padding):
     """ performs SAME convolution on grayscale images.
     if necessary the image should be padded with 0s
     """
