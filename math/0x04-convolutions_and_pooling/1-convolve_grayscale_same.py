@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """ convolution graysclae SAME"""
 
-from math import ceil, floor
 import numpy as np
+
 
 def convolve_grayscale_same(images, kernel):
     """ performs SAME convolution on grayscale images.
