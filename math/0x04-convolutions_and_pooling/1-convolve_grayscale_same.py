@@ -14,9 +14,9 @@ def convolve_grayscale_same(images, kernel):
 
     padded = np.pad(images, (0, 0), (pad_h, pad_h), (pad_w, pad_w), 'constant')
     m, h, w = images.shape
-    conv = np.zeros((m, output_h, output_w))
-    for i in range(output_h):
-        for j in range(output_w):
+    conv = np.zeros((m, h, w))
+    for i in range(h):
+        for j in range(w):
             sector = padded[:, i:i+kh, j:j+kw]
             s_c = sector * kernel
             p = np.sum(s_c, axis=1)
