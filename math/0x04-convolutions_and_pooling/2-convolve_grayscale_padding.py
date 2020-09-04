@@ -15,7 +15,7 @@ def convolve_grayscale_padding(images, kernel, padding):
     m, h, w = images.shape
     output_h = (h + (ph * 2) - kh + 1)
     output_w = (w + (pw * 2) - kw + 1)
-    conv = np.zeros((m, h, w))
+    conv = np.zeros((m, output_h, output_w))
     for i in range(output_h):
         for j in range(output_w):
             sector = padded[:, i:i+kh, j:j+kw]
