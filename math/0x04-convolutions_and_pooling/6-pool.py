@@ -7,7 +7,7 @@ import numpy as np
 def pool(images, kernel_shape, stride, mode='max'):
     """performs pooling on images"""
     m, h, w, c = images.shape
-    kh, kw = kernels_shape
+    kh, kw = kernel_shape
     sh, sw = stride
 
     output_h = int(((h - kh) / sh) + 1)
@@ -17,7 +17,6 @@ def pool(images, kernel_shape, stride, mode='max'):
         for j in range(output_w):
             sector = images[:, (i * sh):(i * sh) + kh,
                             (j * sw):(j * sw) + kw]
-            s_c = sector * kernels[:, :, :, k]
             if mode == 'max':
                 p = np.max(sector, axis=1)
                 p2 = np.max(p, axis=1)
