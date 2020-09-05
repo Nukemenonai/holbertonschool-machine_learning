@@ -14,14 +14,15 @@ def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
     if padding == 'same':
         pad_w = int((((w - 1) * sw + kw - w) / 2) + 1)
         pad_h = int((((h - 1) * sh + kh - h) / 2) + 1)
-    elif type(padding) == tuple and len(padding) == 2:
+
+    if type(padding) == tuple and len(padding) == 2:
         pad_h, pad_w = padding
 
     padded = np.pad(images, ((0, 0), (pad_h, pad_h),
-                             (pad_w, pad_w)), 'constant')
+                             (pad_w, pad_w), (0, 0)), 'constant')
 
-    output_h = (((h + (pad_h * 2) - kh) // sh) + 1)
-    output_w = (((w + (pad_w * 2) - kw) // sw) + 1)
+    output_h = ((h + (pad_h * 2) - kh) // sh) + 1
+    output_w = ((w + (pad_w * 2) - kw) // sw) + 1
 
     conv = np.zeros((m, output_h, output_w))
     for i in range(output_h):
