@@ -7,7 +7,7 @@ import numpy as np
 def pool(images, kernel_shape, stride, mode='max'):
     """performs pooling on images"""
     m, h, w, c = images.shape
-    kh, kw = kernels.shape
+    kh, kw = kernels_shape
     sh, sw = stride
 
     output_h = int(((h - kh) / sh) + 1)
