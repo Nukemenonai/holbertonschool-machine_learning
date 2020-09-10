@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" forward propagation with convolution"""
+""" forward propagation with convolution."""
 
 import numpy as np
 
