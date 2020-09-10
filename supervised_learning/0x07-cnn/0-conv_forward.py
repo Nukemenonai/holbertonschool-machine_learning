@@ -17,11 +17,11 @@ def conv_forward(A_prev, W, b, activation, padding="same", stride=(1, 1)):
     elif padding == 'valid':
         ph = pw = 0
 
-    n_prev = np.pad(A_prev, (0, 0), (ph, ph), (pw, pw), (0, 0), 'constant')
+    n_prev = np.pad(A_prev, ((0, 0), (ph, ph), (pw, pw), (0, 0)), 'constant')
     c_h = int(((h_prev + (ph * 2) - kh) / sh) + 1)
     c_w = int(((w_prev + (pw * 2) - kw) / sw) + 1)
 
-    conv = np.zeros(m, c_h, c_w, c_new)
+    conv = np.zeros((m, c_h, c_w, c_new))
 
     for i in range(c_h):
         for j in range(c_w):
