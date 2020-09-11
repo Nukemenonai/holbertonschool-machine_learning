@@ -29,7 +29,7 @@ def pool_backward(dA, A_prev, kernel_shape, stride=(1, 1), mode='max'):
                         mask = np.where(X == np.max(X), 1, 0)
                         aux = mask * dA[el, i, j, k]
                         dA_prev[el, strided_h:end_h, strided_w:end_w, k] += aux
-                    elif mode == 'avg':
+                    if mode == 'avg':
                         average = dA[el, i, j, k] / (kh * kw)
                         mask = np.ones(X.shape)
                         result = mask * average
