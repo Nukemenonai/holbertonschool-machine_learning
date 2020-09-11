@@ -35,7 +35,7 @@ def lenet5(x, y):
                              kernel_initializer=init_layer)
     FC3 = layer3(x_vector)
 
-    layer4 = tf.layers.Dense(units=84, activation=activation
+    layer4 = tf.layers.Dense(units=84, activation=activation,
                              kernel_initializer=init_layer)
     FC4 = layer4(FC3)
 
