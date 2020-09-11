@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" forward propagation with convolution."""
+""" backward propagation with convolution"""
 
 import numpy as np
 
@@ -12,10 +12,10 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
     kh, kw, c_prev, c_new = W.shape
     sh, sw = stride
 
-    if padding == 'same':
+    if padding == "same":
         ph = int(np.ceil(((h_prev - 1) * sh + kh - h_prev) / 2))
         pw = int(np.ceil(((w_prev - 1) * sw + kw - w_prev) / 2))
-    elif padding == 'valid':
+    if padding == "valid":
         ph = pw = 0
 
     dA = np.zeros(A_prev.shape)
@@ -40,9 +40,9 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
                     dIm[strided_h: end_h, strided_w:end_w] += aW
                     dW[:, :, :, k] += x * dZ[el, i, j, k]
 
-        if padding == 'valid':
+        if padding == "valid":
             dA[el] += dIm
-        elif pdding == 'same':
+        elif pdding == "same":
             dA[el] += dIm[ph: -ph, pw: -pw]
 
     return (dA, dW, db)
