@@ -42,7 +42,7 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
 
         if padding == "valid":
             dA[el] += dIm
-        elif padding == "same":
+        if padding == "same":
             dA[el] += dIm[ph: -ph, pw: -pw]
 
     return (dA, dW, db)
