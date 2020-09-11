@@ -8,7 +8,7 @@ def conv_backward(dZ, A_prev, W, b, padding="same", stride=(1, 1)):
     """ performs forward propagation over
     a convolutional layer of a neural network"""
     m, h_prev, w_prev, c_prev = A_prev.shape
-    m, h_new, w_new, c_new = A_prev.shape
+    m, h_new, w_new, c_new = dZ.shape
     kh, kw, c_prev, c_new = W.shape
     sh, sw = stride
 
