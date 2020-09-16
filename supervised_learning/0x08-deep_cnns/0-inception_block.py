@@ -15,7 +15,7 @@ def inception_block(A_prev, filters):
     conv1 = K.layers.Conv2D(F1, (1, 1), padding='same', activation='relu')
     conv1 = conv1(A_prev)
     # 1x1 conv before 3x3
-    conv3R =K.layers.Conv2D(F3R, (1, 1), padding='same', activation='relu')
+    conv3R = K.layers.Conv2D(F3R, (1, 1), padding='same', activation='relu')
     # 3x3 convolution
     conv3 = K.layers.Conv2D(F3, (3, 3), padding='same', activation='relu')
     conv3 = conv3(conv3R(A_prev))
