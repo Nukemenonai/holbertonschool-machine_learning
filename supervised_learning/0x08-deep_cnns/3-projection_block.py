@@ -50,7 +50,7 @@ def projection_block(A_prev, filters, s=2):
     shortcut = K.layers.Conv2D(filters=F12,
                                kernel_size=(1, 1),
                                padding='same',
-                               strides=(s, s)
+                               strides=(s, s),
                                kernel_initializer=initializer)
     shortcut = shortcut(A_prev)
     normalized_shortcut = K.layers.BatchNormalization(axis=3)
