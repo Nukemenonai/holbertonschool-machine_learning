@@ -34,7 +34,6 @@ def resnet50():
     identity4 = identity_block(identity3, [128, 128, 512])
     identity5 = identity_block(identity4, [128, 128, 512])
 
-
     projection2 = projection_block(identity5, [256, 256, 1024])
     identity6 = identity_block(projection2, [256, 256, 1024])
     identity7 = identity_block(identity6, [256, 256, 1024])
@@ -47,7 +46,7 @@ def resnet50():
     identity12 = identity_block(identity11, [512, 512, 2048])
 
     avg_pool = K.layers.AveragePooling2D(pool_size=(7, 7),
-                                        strides=(1, 1))(identity12)
+                                         strides=(1, 1))(identity12)
 
     FC = K.layers.Dense(units=1000, activation='softmax',
                         kernel_initializer=initializer)(avg_pool)
