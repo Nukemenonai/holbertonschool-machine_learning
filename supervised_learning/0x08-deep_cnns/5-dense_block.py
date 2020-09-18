@@ -31,4 +31,4 @@ def dense_block(X, nb_filters, growth_rate, layers):
                                 kernel_initializer=initializer)(A2)
         cat_out = K.layers.concatenate([X, conv2])
         nb_filters += growth_rate
-    return cat_out, nb_filters
+    return (cat_out, nb_filters)
