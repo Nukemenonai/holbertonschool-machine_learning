@@ -51,8 +51,11 @@ def projection_block(A_prev, filters, s=2):
                                kernel_size=(1, 1),
                                padding='same',
                                strides=(s, s))
+    shortcut = shortcut(A_prev)
+    normalized_shortcut = K.layers.BatchNormalization(axis=3)
+    normalized_shortcut = normalized_shortcut(shortcut)
 
-    add = K.layers.Add()([norm3, A_prev])
+    add = K.layers.Add()([norm3, normalized_shortcut])
     X3 = K.layers.Activation('relu')(add)
 
     return X3
