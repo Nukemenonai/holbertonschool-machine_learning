@@ -31,7 +31,7 @@ def densenet121(growth_rate=32, compression=1.0):
     transition3, filtr_t3 = transition_layer(dense3, filtr_d3, compression)
     dense4, filtr_d4 = dense_block(transition3, filtr_t3, growth_rate, 16)
     avg = K.layers.AveragePooling2D(pool_size=(7, 7),
-                                        strides=(1, 1))(dense4)
+                                    strides=(1, 1))(dense4)
     FC = K.layers.Dense(units=1000, activation='softmax',
                         kernel_initializer=initializer)(avg)
     model = K.models.Model(inputs=X, outputs=FC)
