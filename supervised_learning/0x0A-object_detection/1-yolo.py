@@ -50,8 +50,8 @@ class Yolo:
             cx = c + idx_x
             cy = c + idx_y
 
-            p_w = self.anchors[i, : , 0]
-            p_h = self.anchors[i, : , 1]
+            p_w = self.anchors[i, :, 0]
+            p_h = self.anchors[i, :, 1]
 
             bx = self.sigmoid(t_x) + cx
             by = self.sigmoid(t_y) + cy
