@@ -81,7 +81,6 @@ class Yolo:
     def filter_boxes(self, boxes, box_confidences, box_class_probs):
         """ """
         res = []
-        
         for i in range(len(boxes)):
             res.append(box_class_probs[i] * box_confidences[i])
 
@@ -101,7 +100,6 @@ class Yolo:
         box_classes = idx_class[filter]
         box_scores = score_class[filter]
         filter_boxes = filter_box[filter]
-        
         return (filter_boxes, box_classes, box_scores)
 
     def non_max_suppression(self, filtered_boxes, box_classes, box_scores):
