@@ -79,7 +79,7 @@ class Yolo:
         return (boxes, box_confidence, box_class_probs)
 
     def filter_boxes(self, boxes, box_confidences, box_class_probs):
-        """ """
+        """ filter_boxes """
         res = []
         for i in range(len(boxes)):
             res.append(box_class_probs[i] * box_confidences[i])
@@ -118,13 +118,14 @@ class Yolo:
 
             pick = self._iou(filters, self.nms_t, scores)
 
-            filters = filters[pick]
-            scores = scores[pick]
-            classes = classes[pick]
+            p_filters = filters[pick]
+            p_scores = scores[pick]
+            p_classes = classes[pick]
 
-            box_pred.append(filters)
-            box_classes_pred.append(classes)
-            box_scores_pred.append(scores)
+            box_pred.append(p_filters)
+            box_classes_pred.append(p_classes)
+            box_scores_pred.append(p_scores)
+
         filtered_boxes = np.concatenate(box_pred, axis=0)
         box_classes = np.concatenate(box_classes_pred, axis=0)
         box_scores = np.concatenate(box_scores_pred, axis=0)
@@ -150,13 +151,12 @@ class Yolo:
             xx2 = np.minimum(x2[i], x2[idxs[1:]])
             yy2 = np.minimum(y2[i], y2[idxs[1:]])
 
-            w = np.maximum(0, xx2 - xx1 + 1)
-            h = np.maximum(0, yy2 - yy1 + 1)
-
-            inter = (w * h)
-            overlap = inter / (area[i] + area[idxs[1:]])
-
-            ind = np.where(overlap > self.nms_t)[0]
+            w = np.maximum(0.0, xx2 - xx1 + 1)
+            h = np.maximum(0.0, yy2 - yy1 + 1)
+            inter = w * h
+            overlap = inter / (area[i] + area[idxs[1:]] - inter)
+            ind = np.where(overlap <= thresh)[0]
             idxs = idxs[ind + 1]
 
         return pick
+
