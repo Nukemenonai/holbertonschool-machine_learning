@@ -131,51 +131,32 @@ class Yolo:
 
         return (filtered_boxes, box_classes, box_scores)
 
-    
     def _iou(self, filtered_boxes, thresh, scores):
- 
-        # grab the coordinates of the bounding boxes
-        x1 = filtered_boxes[:,0]
-        y1 = filtered_boxes[:,1]
-        x2 = filtered_boxes[:,2]
-        y2 = filtered_boxes[:,3]
- 
-	    # compute the area of the bounding boxes and sort the bounding
-    	# boxes by the bottom-right y-coordinate of the bounding box
+        """ """
+        x1 = filtered_boxes[:, 0]
+        y1 = filtered_boxes[:, 1]
+        x2 = filtered_boxes[:, 2]
+        y2 = filtered_boxes[:, 3]
         area = (x2 - x1 + 1) * (y2 - y1 + 1)
         idxs = scores.argsort()[::-1]
 
-        # initialize the list of picked indexes	
         pick = []
-        # keep looping while some indexes still remain in the indexes
-	    # list
         while idxs.size > 0:
-            # grab the last index in the indexes list and add the
-            # index value to the list of picked indexes
             i = idxs[0]
             pick.append(i)
- 
-		    # find the largest (x, y) coordinates for the start of
-		    # the bounding box and the smallest (x, y) coordinates
-		    # for the end of the bounding box
+
             xx1 = np.maximum(x1[i], x1[idxs[1:]])
             yy1 = np.maximum(y1[i], y1[idxs[1:]])
             xx2 = np.minimum(x2[i], x2[idxs[1:]])
             yy2 = np.minimum(y2[i], y2[idxs[1:]])
- 
-            # compute the width and height of the bounding box
+
             w = np.maximum(0, xx2 - xx1 + 1)
             h = np.maximum(0, yy2 - yy1 + 1)
- 
-            # compute the ratio of overlap
+
             inter = (w * h)
-            overlap =  inter / (area[i] + area[idxs[1:]])
- 
-            # delete all indexes from the index list that have
+            overlap = inter / (area[i] + area[idxs[1:]])
+
             ind = np.where(overlap > self.nms_t)[0]
             idxs = idxs[ind + 1]
 
- 
-        # return only the bounding boxes that were picked using the
-        # integer data type
         return pick
