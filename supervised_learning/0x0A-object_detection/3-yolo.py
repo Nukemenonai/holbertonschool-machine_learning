@@ -159,4 +159,3 @@ class Yolo:
             idxs = idxs[ind + 1]
 
         return pick
-
