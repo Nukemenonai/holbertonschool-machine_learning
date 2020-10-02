@@ -133,7 +133,7 @@ class Yolo:
         return (filtered_boxes, box_classes, box_scores)
 
     def _iou(self, filtered_boxes, thresh, scores):
-        """ """
+        """ does iou """
         x1 = filtered_boxes[:, 0]
         y1 = filtered_boxes[:, 1]
         x2 = filtered_boxes[:, 2]
