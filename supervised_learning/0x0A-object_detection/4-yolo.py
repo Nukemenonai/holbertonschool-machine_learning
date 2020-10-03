@@ -3,11 +3,11 @@
 Yolo
 """
 
-import tensorflow as tf
 import tensorflow.keras as K
 import numpy as np
 import glob
 import cv2
+
 
 class Yolo:
     """
@@ -161,6 +161,7 @@ class Yolo:
 
         return pick
 
+    @static_method
     def load_images(folder_path):
         """ folder_path: a string representing
         the path to the folder holding all the images to load
