@@ -161,14 +161,14 @@ class Yolo:
 
         return pick
 
-    @static_method
+    @staticmethod
     def load_images(folder_path):
         """ folder_path: a string representing
         the path to the folder holding all the images to load
         Returns a tuple of (images, image_paths):
         images: a list of images as numpy.ndarrays
-        image_paths: a list of paths to the individual images in images"""
-
+        image_paths: a list of paths to the individual images in images
+        """
         imgs = []
         img_path = glob.glob(folder_path + '/*.jpg', recursive=False)
         for img in img_path:
