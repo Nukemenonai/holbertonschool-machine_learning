@@ -220,12 +220,12 @@ class Yolo:
             image = cv2.putText(image, label, (x1, y1 - 5),
                                 cv2.FONT_HERSHEY_SIMPLEX,
                                 0.5, (0, 0, 255), 1, cv2.LINE_AA)
-            cv2.imshow(file_name, image)
-            key = cv2.waitKey(0)
-            if key == ord('s'):
-                if not os.path.exists('detections'):
-                    os.mkdir('detections')
-                cv2.imwrite(os.path.join('detections', file_name), image)
-                cv2.destroyAllWindows()
-            else:
-                cv2.destroyAllWindows()
+        cv2.imshow(file_name, image)
+        key = cv2.waitKey(0)
+        if key == ord('s'):
+            if not os.path.exists('detections'):
+                os.mkdir('detections')
+            cv2.imwrite(os.path.join('detections', file_name), image)
+            cv2.destroyAllWindows()
+        else:
+            cv2.destroyAllWindows()
