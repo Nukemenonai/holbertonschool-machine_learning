@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+""" this module contains the determinannt function"""
 
 
 def determinant(matrix):
@@ -9,7 +10,7 @@ def determinant(matrix):
 
     if not all(isinstance(row, list) for row in matrix):
         raise TypeError('matrix must be a list of lists')
-    
+
     if len(matrix) == 1:
         if len(matrix[0]) == 0:
             return 1
@@ -35,4 +36,4 @@ def determinant(matrix):
         cofactor = (-1) ** (i % 2)
         det = determinant(copy)
         value += cofactor * matrix[0][i] * det
-    return value 
+    return value
