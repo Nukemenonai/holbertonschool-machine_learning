@@ -90,7 +90,7 @@ def adjugate(matrix):
         raise ValueError('matrix must be a non-empty square matrix')
     if not all(len(matrix) == col for col in [len(row) for row in matrix]):
         raise ValueError('matrix must be a non-empty square matrix')
-    
+
     cofactor_matrix = cofactor(matrix)
 
     for i in range(len(cofactor_matrix)):
