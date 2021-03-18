@@ -114,7 +114,7 @@ def inverse(matrix):
     det = determinant(matrix)
 
     if not det:
-        return None 
+        return None
 
     inverse_matrix = adjugate(matrix)
 
