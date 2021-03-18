@@ -111,11 +111,12 @@ def inverse(matrix):
     if not all(len(matrix) == col for col in [len(row) for row in matrix]):
         raise ValueError('matrix must be a non-empty square matrix')
 
-    inverse_matrix = adjugate(matrix)
     det = determinant(matrix)
 
-    if det == 0:
+    if not det:
         return None 
+
+    inverse_matrix = adjugate(matrix)
 
     for i in range(len(inverse_matrix)):
         for j in range(len(inverse_matrix)):
