@@ -82,6 +82,7 @@ def cofactor(matrix):
 
 
 def adjugate(matrix):
+    """ returns the adjugate matrix of a matrix"""
     if type(matrix) is not list or len(matrix) == 0:
         raise TypeError('matrix must be a list of lists')
     if not all(isinstance(row, list) for row in matrix):
