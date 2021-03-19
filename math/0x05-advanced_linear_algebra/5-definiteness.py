@@ -3,6 +3,7 @@
 
 import numpy as np
 
+
 def definiteness(matrix):
     """ calculates the definiteness of a matrix"""
 
@@ -25,15 +26,15 @@ def definiteness(matrix):
             zero += 1
         elif eig_val < 0:
             neg += 1
-        else: 
+        else:
             pos += 1
-    
+
     if pos and not neg and not zero:
         return 'Positive definite'
     elif pos and not neg and zero:
         return 'Positive semi-definite'
     elif neg and not pos and zero:
         return 'Negative semi-definite'
-    elif neg and not pos and not zero:    
+    elif neg and not pos and not zero:
         return 'Negative definite'
     return 'Indefinite'
