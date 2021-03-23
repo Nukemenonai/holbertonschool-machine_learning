@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """ this module contains the Multiormal class"""
 
+
 import numpy as np
+
 
 def mean_cov(X):
     """calculates the mean and covariance of a data set"""
