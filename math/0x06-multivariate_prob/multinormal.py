@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 """ 
 this module contains the Multinormal class
 """
@@ -8,7 +9,10 @@ import numpy as np
 
 
 def mean_cov(X):
-    """calculates the mean and covariance of a data set"""
+    """calculates the mean and covariance of a data set
+    :param X: numpy.darray
+    :return: mean, cov
+    """
     d = X.shape[0]
     n = X.shape[1]
 
@@ -26,6 +30,8 @@ class MultiNormal ():
         """
         init class
         :param data: np.ndarray
+            n is the number of data points
+            d number of dimensions in each data point
         """
         if type(data) is not np.ndarray or len(data.shape) is not 2:
             raise TypeError('data must be a 2D numpy.ndarray')
@@ -35,9 +41,9 @@ class MultiNormal ():
         self.mean, self.cov = mean_cov(data)
 
     def pdf(self, x):
-        """ calculates the PDF at a data point 
+        """ calculates the PDF at a data point
         :param x: np.ndarray contains the data
-        :return: 
+        :return:
         """
 
         if type(x) != np.ndarray:
