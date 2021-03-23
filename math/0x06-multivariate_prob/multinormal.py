@@ -24,6 +24,10 @@ def mean_cov(X):
 class MultiNormal:
     """ Class that represents a Multivariate Normal distribution """
     def __init__(self, data):
+        """
+        init class 
+        :param data: np.ndarray  
+        """
         if type(data) != np.ndarray or len(data.shape) != 2:
             raise TypeError("data must be a 2D numpy.ndarray")
         n, d = data.shape
