@@ -44,11 +44,11 @@ class MultiNormal ():
         :return: the value of the PDF
         """
 
-        if type(x) != np.ndarray:
-            raise TypeError("x must be a numpy.ndarray")
+        if x is None or type(x) is not np.ndarray:
+            raise TypeError('x must be a numpy.ndarray')
         d = self.cov.shape[0]
         if len(x.shape) != 2 or x.shape[0] != d or x.shape[1] != 1:
-            raise ValueError(f"x must have the shape ({d}, 1 )")
+            raise ValueError('x must have the shape ({}, 1 )'.format(d))
 
         x_1 = x - self.mean
 
