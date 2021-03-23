@@ -13,7 +13,6 @@ def mean_cov(X):
         raise ValueError("X must contain multiple data points")
     
     mean = np.expand_dims(np.mean(X, axis=0), axis=0)
-    # taking the differences between each number in the dataset and the mean
     X -= mean
 
     cov = np.dot(X.T, X) / (n - 1)
