@@ -8,7 +8,7 @@ import numpy as np
 def correlation(C):
     """ calculate a correlation matrix
     :param C: matrix of covariances
-    :return: np.ndarray with 
+    :return: np.ndarray with
     """
     if type(C) is not np.ndarray:
         raise TypeError('C must be a numpy.ndarray')
