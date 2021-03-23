@@ -18,4 +18,4 @@ def mean_cov(X):
     
     cov = np.dot(X.T, X) / (n - 1)
 
-    return mean, cov 
+    return mean, cov
