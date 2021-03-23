@@ -11,7 +11,7 @@ def mean_cov(X):
     n, d = X.shape
     if n < 2:
         raise ValueError("X must contain multiple data points")
-    
+
     mean = np.expand_dims(np.mean(X, axis=0), axis=0)
     X -= mean
 
