@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-""" this module contains the Multinormal class"""
+""" 
+this module contains the Multinormal class
+"""
 
 
 import numpy as np
@@ -21,22 +23,25 @@ def mean_cov(X):
     return mean, cov
 
 
-class MultiNormal:
+class MultiNormal ():
     """ Class that represents a Multivariate Normal distribution """
     def __init__(self, data):
         """
-        init class 
-        :param data: np.ndarray  
+        init class
+        :param data: np.ndarray
         """
         if type(data) != np.ndarray or len(data.shape) != 2:
-            raise TypeError("data must be a 2D numpy.ndarray")
+            raise TypeError('data must be a 2D numpy.ndarray')
         n, d = data.shape
         if n < 2:
-            raise ValueError("data must contain multiple data points")
+            raise ValueError('data must contain multiple data points')
         self.mean, self.cov = mean_cov(data)
 
     def pdf(self, x):
-        """ calculates the PDF at a data point """
+        """ calculates the PDF at a data point 
+        :param x: np.ndarray contains the data
+        :return: 
+        """
 
         if type(x) != np.ndarray:
             raise TypeError("x must be a numpy.ndarray")
