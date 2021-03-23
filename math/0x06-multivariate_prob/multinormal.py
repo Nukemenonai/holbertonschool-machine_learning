@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
-
-""" 
+"""
 this module contains the Multinormal class
 """
-
-
 import numpy as np
 
 
@@ -42,8 +39,9 @@ class MultiNormal ():
 
     def pdf(self, x):
         """ calculates the PDF at a data point
-        :param x: np.ndarray contains the data
-        :return:
+        :param x: np.ndarray contains the data set
+            d number of dimensions of the multinomial instance
+        :return: the value of the PDF
         """
 
         if type(x) != np.ndarray:
