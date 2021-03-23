@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" this module contains the Multiormal class"""
+""" this module contains the Multinormal class"""
 
 
 import numpy as np
@@ -11,10 +11,9 @@ def mean_cov(X):
         raise TypeError("X must be a 2D numpy.ndarray")
     d, n = X.shape
     if n < 2:
-        raise ValueError("X must cotain multiple data points")
+        raise ValueError("X must contain multiple data points")
 
     mean = np.mean(X, axis=1).reshape(d, 1)
-    # taking the differences between each number in the dataset and the mean
     X = X - mean
 
     cov = ((np.dot(X, X.T)) / (n - 1))
