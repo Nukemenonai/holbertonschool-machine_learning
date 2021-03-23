@@ -52,7 +52,6 @@ class MultiNormal ():
 
         x_1 = x - self.mean
 
-        den = np.sqrt((2 * np.pi) ** d * np.linalg.det(self.cov))
-        exp = np.exp(-(np.linalg.solve(self.cov, x_1).T.dot(x_1)) / 2)
-        res = (1. /den) * exp
+        res = (1. / (np.sqrt((2 * np.pi) ** d * np.linalg.det(self.cov))) *
+                np.exp(-(np.linalg.solve(self.cov, x_1).T.dot(x_1)) / 2))
         return res[0][0]
