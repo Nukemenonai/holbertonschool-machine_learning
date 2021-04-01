@@ -20,11 +20,17 @@ def expectation(X, pi, m, S):
     l: total log likelihood
     """
 
-    if type(all(X, pi, m, S)) is not np.ndarray:
+    if not type(X) == np.ndarray or len(X.shape) != 2:
         return None, None
-    
+    if not type(m) == np.ndarray or len(m.shape) != 2:
+        return None, None
+    if not type(S) == np.ndarray or len(S.shape) != 3:
+        return None, None
+    if not type(pi) == np.ndarray or len(pi.shape) != 1:
+        return None, None
+
     n, _ = X.shape
-    k, d = S.shape
+    k, d, _ = S.shape
 
     g = np.zeros((k, n))
 
@@ -33,10 +39,10 @@ def expectation(X, pi, m, S):
         prior = pi[cluster]
         g[cluster] = prior * prob
 
-    total = np.sum(axis=0, keepdims=True)
+    total = np.sum(g, axis=0, keepdims=True)
 
     posterior = g / total
 
     gmm_prob = np.sum(np.log(total))
 
-    return posterior, gmm_prob 
+    return posterior, gmm_prob
