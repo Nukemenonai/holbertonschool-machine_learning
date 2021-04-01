@@ -38,7 +38,7 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
     prev_L = 0
     i = 0
 
-     # L = likelihood
+    # L = likelihood
     g, L = expectation(X, pi, m, S)
     while(i < iterations):
         if (np.abs(prev_L - L)) <= tol:
