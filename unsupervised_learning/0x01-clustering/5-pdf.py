@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""PDF"""
+"""
+PDF for a gaussian distribution
+"""
 
 import numpy as np
 
@@ -7,12 +9,11 @@ import numpy as np
 def pdf(X, m, S):
     """
     calculates the probability density function of a Gaussian distribution:
-
     X: (n, d) the data points whose PDF should be evaluated
     m: (d,) the mean of the distribution
     S: (d, d) the covariance of the distribution
     return: P or None on failure
-        P: (n,) the PDF values for each data point
+    P: (n,) the PDF values for each data point
     """
     if not isinstance(X, np.ndarray) or len(X.shape) != 2:
         return None
