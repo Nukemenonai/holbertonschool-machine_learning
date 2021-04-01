@@ -52,4 +52,3 @@ def maximization(X, g):
         cov[cluster] = np.matmul(first, (X - mean[cluster])) / den
 
     return (pi, mean, cov)
-    
