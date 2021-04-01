@@ -44,7 +44,7 @@ def expectation(X, pi, m, S):
         return None, None
     if dX != m.shape[1]:
         return None, None
-    if pi.shappe[0] != m.shape[0]:
+    if pi.shape[0] != m.shape[0]:
         return None, None 
 
     g = np.zeros((k, n))
