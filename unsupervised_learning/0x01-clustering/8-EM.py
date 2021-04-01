@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-EM
+Expectation Maximization 
 """
 
 import numpy as np
@@ -11,7 +11,6 @@ maximization = __import__('7-maximization').maximization
 
 def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
     """performs the expectation maximization for a GMM:
-
     X: (n, d) the data set
     k: positive integer, the number of clusters
     iterations: positive integer,the maximum number
