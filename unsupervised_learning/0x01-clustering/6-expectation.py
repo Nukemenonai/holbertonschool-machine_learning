@@ -29,8 +29,23 @@ def expectation(X, pi, m, S):
     if not type(pi) == np.ndarray or len(pi.shape) != 1:
         return None, None
 
-    n, _ = X.shape
-    k, d, _ = S.shape
+    # confirm values in pi
+
+    mask1 = np.where(pi < 0, True, False)
+    mask2 = np.where(pi > 1, True, False)
+    if mask1.any() or mask2.any():
+        return None, None
+    
+
+    n, dX = X.shape
+    k, dS, dS2 = S.shape
+
+    if dX != dS or dS != dS2:
+        return None, None
+    if dX != m.shape[1]:
+        return None, None
+    if pi.shappe[0] != m.shape[0]:
+        return None, None 
 
     g = np.zeros((k, n))
 
