@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-""" sklearn kmmeans""" 
+""" sklearn kmmeans"""
 
 import sklearn.cluster
 
 
 def kmeans(X, k):
-
     """performs k mmeans on a data set """
     kmeans = sklearn.cluster.KMeans(n_clusters=k).fit(X)
 
