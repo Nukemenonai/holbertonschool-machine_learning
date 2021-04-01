@@ -37,5 +37,4 @@ def pdf(X, m, S):
 
     P = np.where(pdf < 1e-300, 1e-300, pdf)
 
-    # P = (1 / S_i * (np.sqrt(2 ** np.pi))) ** (0.5 * (X_m/S_i))
     return P
