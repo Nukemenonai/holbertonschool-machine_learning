@@ -16,8 +16,8 @@ def expectation_maximization(X, k, iterations=1000, tol=1e-5, verbose=False):
     k: positive integer, the number of clusters
     iterations: positive integer,the maximum number
     of iterations for the algorithm
-    tol is a non-negative float containing tolerance 
-    of the log likelihood, used to determine early stopping 
+    tol is a non-negative float containing tolerance
+    of the log likelihood, used to determine early stopping
     """
     if not isinstance(X, np.ndarray) or len(X.shape) != 2:
         return None, None, None, None, None
