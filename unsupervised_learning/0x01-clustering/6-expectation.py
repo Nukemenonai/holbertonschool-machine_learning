@@ -35,7 +35,6 @@ def expectation(X, pi, m, S):
     mask2 = np.where(pi > 1, True, False)
     if mask1.any() or mask2.any():
         return None, None
-    
 
     n, dX = X.shape
     k, dS, dS2 = S.shape
@@ -45,7 +44,7 @@ def expectation(X, pi, m, S):
     if dX != m.shape[1]:
         return None, None
     if pi.shape[0] != m.shape[0]:
-        return None, None 
+        return None, None
 
     g = np.zeros((k, n))
 
