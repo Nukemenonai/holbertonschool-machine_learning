@@ -20,7 +20,9 @@ def pdf(X, m, S):
         return None
     if not isinstance(S, np.ndarray) or len(S.shape) != 2:
         return None
-    if S.shape[0] != S.shape[1]:
+    if X.shape[1] != S.shape[1] or S.shape[0] != S.shape[1]:
+        return None
+    if X.shape[1] != m.shape[0]:
         return None
 
     _, d = X.shape
