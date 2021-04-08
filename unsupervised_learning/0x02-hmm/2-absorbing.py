@@ -11,13 +11,36 @@ def absorbing(P):
         P: standard transition matrix
     Return: True if it's absorbing, None on failure
     """
-    if (P == np.eye(P.shape[0])).all():
+    if type(P) is not np.ndarray or len(P.shape) != 2:
+        return False
+    if P.shape[0] != P.shape[1]:
+        return False
+    sum_test = np.sum(P, axis=1)
+    for elem in sum_test:
+        if not np.isclose(elem, 1):
+            return None
+
+    n, _ = P.shape
+
+    D = np.diag(P)
+
+    if (D == 1).all():
         return True
-    if np.any(np.diag(P) == 1):
-        for i, row in enumerate(P):
-            for j, col in enumerate(row):
-                if i == j and ((i + 1) < len(P)) and ((j + 1) < len(P)):
-                    if P[i + 1][j] == 0 and P[i][j + 1] == 0:
-                        return False
-        return True
-    return False
+
+    if (D != 1).all():
+        return False
+
+    absorb = np.where(D == 1, 1, 0)
+
+    # we start to find connections from the absorbing states
+    for i in range(n):
+        idx = np.where(absorb == 1)
+
+        for ind in idx[0]:
+            item = P[:, ind]
+            mask = np.where(item > 0)[0]
+            absorb[mask] = True
+            if absorb.all():
+                return True
+
+    return absorb.all()
