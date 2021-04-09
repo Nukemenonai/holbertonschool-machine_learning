@@ -114,8 +114,7 @@ def baum_welch(Observations, Transition, Emission, Initial, iterations=1000):
         for t in range(T - 1):
             em = Emission[:, Observations[t + 1]].T
             den = np.dot(np.multiply(np.dot(alpha[:, t].T,
-                                                    Transition), em),
-                                 beta[:, t + 1])
+                                     Transition), em), beta[:, t + 1])
             for i in range(N):
                 a = Transition[i]
                 num = alpha[i, t] * a * em * beta[:, t + 1].T
