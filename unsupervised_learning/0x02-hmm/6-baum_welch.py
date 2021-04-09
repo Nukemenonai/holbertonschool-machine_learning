@@ -2,13 +2,13 @@
 """
 Baum-Welch Algorithm
 """
+
 import numpy as np
 
 
 def forward(Observation, Emission, Transition, Initial):
     """
     performs the forward algorithm for a hidden markov model:
-
         Observation: (T,)
         contains the index of the observation
         T: number of observations
@@ -89,13 +89,13 @@ def baum_welch(Observations, Transition, Emission, Initial, iterations=1000):
     Performs the Baum-Welch algorithm for a hidden markov model
     Observations: is a numpy.ndarray of shape (T,) that
     contains the index of the observation
-        T is the number of observations
+    T is the number of observations
     Transition: is a numpy.ndarray of shape (M, M) that
     contains the initialized transition probabilities
-        M is the number of hidden states
+    M is the number of hidden states
     Emission: is a numpy.ndarray of shape (M, N) that
     contains the initialized emission probabilities
-        N is the number of output states
+    N is the number of output states
     Initial:  is a numpy.ndarray of shape (M, 1) that
     contains the initialized starting probabilities
     Iterations: is the number of times expectation-maximization
@@ -125,7 +125,6 @@ def baum_welch(Observations, Transition, Emission, Initial, iterations=1000):
             .reshape((-1, 1))
         gamma = np.hstack((gamma, np.sum(xi[:, :, T - 2],
                                          axis=0).reshape((-1, 1))))
-
         K = Emission.shape[1]
         denominator = np.sum(gamma, axis=1)
         for j in range(K):
