@@ -8,7 +8,7 @@ import numpy as np
 
 class RNNCell():
     """
-    Represents a cell of single RNN 
+    Represents a cell of single RNN
     """
     def __init__(self, i, h, o):
         """
