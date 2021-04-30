@@ -8,7 +8,7 @@ import numpy as np
 
 class LSTMCell():
     """
-    Represents an LSTM unit 
+    Represents an LSTM unit
     """
 
     def __init__(self, i, h, o):
