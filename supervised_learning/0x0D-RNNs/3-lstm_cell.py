@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-creating single Long Short Term Memory cell
+Long Short Term Memory cell
 """
 
 import numpy as np
