@@ -3,6 +3,7 @@
 word2vec in keras
 """
 
+
 def gensim_to_keras(model):
     """
     Converts a gensim word2vec model to a keras Embedding layer:
