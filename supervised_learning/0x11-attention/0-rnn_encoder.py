@@ -6,7 +6,7 @@ RNN Encoder
 import tensorflow as tf
 
 
-class RNNEncoder(tensorflow.keras.layers.Layer):
+class RNNEncoder(tf.keras.layers.Layer):
     """
     Encodes for machine translation
     """
