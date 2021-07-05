@@ -7,8 +7,8 @@ import gym
 from rl.agents.dqn import DQNAgent
 from rl.policy import EpsGreedyQPolicy, LinearAnnealedPolicy
 from rl.memory import SequentialMemory
-from tensorflow.keras import layers
-import tensorflow.keras as K
+from keras import layers
+import keras as K
 from rl.processors import Processor
 from PIL import Image
 import numpy as np
@@ -76,7 +76,9 @@ def q_learning_model(num_actions, window):
 
     layer5 = layers.Dense(512, activation="relu")(layer4)
 
-    nb_actions = layers.Dense(num_actions, activation="linear")(layer5)
+    layer6 = layers.Dense(64, activation="relu")(layer5)
+
+    nb_actions = layers.Dense(num_actions, activation="linear")(layer6)
 
     model = K.Model(inputs=input, outputs=nb_actions)
     return model
@@ -89,11 +91,11 @@ if __name__ == '__main__':
     window = 4
 
     # deep convolutional neural network model
-    model = my_model(nb_actions, window)
+    model = q_learning_model(nb_actions, window)
     model.summary()
 
     memory = SequentialMemory(limit=1000000, window_length=window)
-    processor = AtariProcessor()
+    processor = Atari2DProcessor()
 
     policy = LinearAnnealedPolicy(EpsGreedyQPolicy(),
                                   attr='eps',
@@ -119,7 +121,7 @@ if __name__ == '__main__':
     dqn.fit(env,
             nb_steps=17500,
             log_interval=10000,
-            visualize=False,
+            visualize=True,
             verbose=2)
 
     # save the final weights.

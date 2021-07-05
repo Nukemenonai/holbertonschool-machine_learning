@@ -6,7 +6,7 @@ Agent training
 import gym
 from rl.agents.dqn import DQNAgent
 from rl.memory import SequentialMemory
-import tensorflow.keras as K
+import keras as K
 import numpy as np
 
 create_q_model = __import__('train').q_learning_model
@@ -35,4 +35,4 @@ if __name__ == '__main__':
     dqn.load_weights('policy.h5')
 
     # evaluate algorithm for 10 episodes.
-    dqn.test(env, nb_episodes=10, visualize=False)
+    dqn.test(env, nb_episodes=10, visualize=True)
