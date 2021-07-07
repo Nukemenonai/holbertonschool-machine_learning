@@ -4,12 +4,15 @@ Agent training
 """
 
 import gym
+import keras as K
+from keras import layers
+
 from rl.agents.dqn import DQNAgent
 from rl.policy import EpsGreedyQPolicy, LinearAnnealedPolicy
 from rl.memory import SequentialMemory
-from keras import layers
-import keras as K
 from rl.processors import Processor
+from rl.callbacks import FileLogger, ModelIntervalCheckpoint
+
 from PIL import Image
 import numpy as np
 
@@ -117,12 +120,18 @@ if __name__ == '__main__':
 
     dqn.compile(K.optimizers.Adam(lr=.00025), metrics=['mae'])
 
+    #callbacks
+
+    callbacks = [ModelIntervalCheckpoint('policy.h5', interval=250000)]
+    callbacks += [FileLogger('dqn_log.json', interval=100)]
+
     # training
     dqn.fit(env,
-            nb_steps=17500,
+            callbacks=callbacks,
+            nb_steps=1500000,
             log_interval=10000,
             visualize=True,
             verbose=2)
 
     # save the final weights.
-    dqn.save_weights('policy.h5', overwrite=False)
+    dqn.save_weights('policy.h5', overwrite=True)
