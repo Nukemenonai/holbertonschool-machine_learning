@@ -4,7 +4,7 @@ import requests
 
 
 def availableShips(passengerCount):
-    """Returns the list of ships that 
+    """Returns the list of ships that
     can hold a given number of passengers"""
     url = 'https://swapi-api.hbtn.io/api/starships/'
     data = requests.get(url)
@@ -20,7 +20,7 @@ def availableShips(passengerCount):
                     my_ships.append(result['name'])
         data = requests.get(data['next'])
         data = data.json()
-        
+
     if data['next'] is None:
         for result in data['results']:
             passengers = result['passengers']
