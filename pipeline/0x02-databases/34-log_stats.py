@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Log stats w/ pymongo
+Log stats pymongo
 """
 
 from pymongo import MongoClient
@@ -38,7 +38,7 @@ if __name__ == "__main__":
         num_met = collection_logs.count_documents({"method": method})
         print("\tmethod {}: {}".format(method, num_met))
 
-    dictionary = {"method": "GET", "path": "/status"}
+    my_dicti = {"method": "GET", "path": "/status"}
 
-    n_dict = collection_logs.count_documents(dictionary)
-    print("{} status check".format(n_dict))
+    num_dicti = collection_logs.count_documents(my_dicti)
+    print("{} status check".format(num_dicti))
