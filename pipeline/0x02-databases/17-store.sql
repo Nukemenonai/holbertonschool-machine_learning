@@ -1,4 +1,4 @@
---creates a trigger that decreases quantityof an item after adding a new order
+-- creates a trigger that decreases quantityof an item after adding a new order
 
 DELIMITER $$
 CREATE TRIGGER items_updated
