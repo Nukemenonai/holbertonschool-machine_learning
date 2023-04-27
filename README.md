@@ -1,3 +1,3 @@
 # holbertonschool-machine_learning
 
-Holberton school repository for the machine learning curriculum
+Repository for the Holberton school machine learning curriculum
